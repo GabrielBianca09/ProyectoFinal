@@ -5,12 +5,12 @@ public class Pasajero extends Persona {
 
     /// Contructor ----------------------------
 
-    public Pasajero(String nombre, String apellido, String dni, String email, String direccionOrigenn, String numeroCelular) {
+    public Pasajero(String nombre, String apellido, String dni, String email, String direccionOrigen, String numeroCelular) {
         super(nombre,apellido,dni,email,numeroCelular);
         this.direccionOrigen = direccionOrigen;
     }
 
-    ///  Getters ------------------------
+    ///  Getters --------------------------
 
     public String getDireccionOrigen() {
         return direccionOrigen;
