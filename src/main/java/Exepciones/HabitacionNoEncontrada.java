@@ -1,7 +1,7 @@
-package PACKAGE_NAME;
+package Exepciones;
 
 public class HabitacionNoEncontrada extends RuntimeException {
-  public HabitacionNoEncontrada(String message) {
-    super(message);
-  }
+    public HabitacionNoEncontrada(String message) {
+        super(message);
+    }
 }

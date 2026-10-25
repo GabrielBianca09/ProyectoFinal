@@ -1,4 +1,7 @@
-package Reservas;
+package Clases;
+
+import Enums.EstadoHabitacion;
+import Enums.Tipo_Habitacion;
 
 import java.util.Date;
 import java.util.List;
@@ -82,7 +85,7 @@ public class Reserva {
     public boolean agregarHabitacion(Habitacion h){
         if(h.getEstadoHabitacion()== EstadoHabitacion.DISPONIBLE){
             if(gestor.agregar(h)){
-                
+                h.setEstadoHabitacion(EstadoHabitacion.RESERVADA);
             }
         }
         return false;

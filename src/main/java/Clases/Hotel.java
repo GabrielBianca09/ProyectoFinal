@@ -1,3 +1,5 @@
+package Clases;
+
 public class Hotel {
 
     private String nombreHotel;
@@ -43,7 +45,7 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel{" +
+        return "Clases.Empleados.Hotel{" +
                 "nombreHotel='" + nombreHotel + '\'' +
                 ", direccionHotel='" + direccionHotel + '\'' +
                 ", numeroContactoHotel='" + numeroContactoHotel + '\'' +

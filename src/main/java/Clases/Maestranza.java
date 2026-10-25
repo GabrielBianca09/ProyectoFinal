@@ -1,4 +1,6 @@
-public class Maestranza extends Empleado{
+package Clases;
+
+public class Maestranza extends Empleado {
 
     /// Constructor ----------------------------------
 
@@ -10,7 +12,7 @@ public class Maestranza extends Empleado{
 
     @Override
     public String toString() {
-        return "Maestranza{} " + super.toString();
+        return "Empleados.Maestranza{} " + super.toString();
     }
 
 

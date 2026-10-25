@@ -1,4 +1,7 @@
-package Reservas;
+package Clases;
+
+import Enums.EstadoHabitacion;
+import Enums.Tipo_Habitacion;
 
 public class Habitacion {
     private static int numerogen=0;

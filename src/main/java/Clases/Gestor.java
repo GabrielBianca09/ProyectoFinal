@@ -1,4 +1,4 @@
-package Reservas;
+package Clases;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +18,15 @@ public class Gestor<T> {
         return false;
     }
 
-    public T buscarPorid(int pos){
-        if(pos>=0 && pos< lista.size()){
-            return lista.get(pos);
+    public T buscarPorid(int id){
+        if(id>=0 && id< lista.size()){
+            return lista.get(id);
         }
         return null;
     }
 
-    public boolean eliminarObjeto(int pos){
-        T element=buscarPorid(pos);
+    public boolean eliminarObjeto(int id){
+        T element=buscarPorid(id);
         if(element!=null){
             return lista.remove(element);
         }

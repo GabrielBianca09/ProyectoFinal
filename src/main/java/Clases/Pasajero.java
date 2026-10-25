@@ -1,4 +1,4 @@
-package Reservas;
+package Clases;
 
 public class Pasajero extends Persona {
 

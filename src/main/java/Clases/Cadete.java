@@ -1,3 +1,5 @@
+package Clases;
+
 public class Cadete extends Empleado {
 
     /// Constructores ---------------------------------------
@@ -11,6 +13,6 @@ public class Cadete extends Empleado {
 
     @Override
     public String toString() {
-        return "Cadete{} " + super.toString();
+        return "Empleados.Cadete{} " + super.toString();
     }
 }

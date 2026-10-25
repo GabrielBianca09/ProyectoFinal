@@ -1,4 +1,6 @@
-public class Empleado extends Persona{
+package Clases;
+
+public class Empleado extends Persona {
 
     private int horasTrabajadas;
     private String direccion;
@@ -54,7 +56,7 @@ public class Empleado extends Persona{
 
     @Override
     public String toString() {
-        return "Empleado{" + super.toString() +
+        return "Empleados.Empleado{" + super.toString() +
                 "horasTrabajadas=" + horasTrabajadas +
                 ", direccion='" + direccion + '\'' +
                 ", salarioPorHora=" + salarioPorHora +
