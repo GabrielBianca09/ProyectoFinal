@@ -55,6 +55,7 @@ public class Habitacion implements Identificable {
     }
 
 
+
     public int getNumeroHabitacion() {
         return numeroHabitacion;
     }
@@ -70,6 +71,7 @@ public class Habitacion implements Identificable {
     public void setTipoHabitacion(Tipo_Habitacion tipoHabitacion) {
         this.tipoHabitacion = tipoHabitacion;
     }
+
 
     @Override
     public int getId() {

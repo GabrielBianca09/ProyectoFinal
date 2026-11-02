@@ -54,6 +54,23 @@ public class GestorHotel {
     }
 
 
+    public void eliminarHabitacion(int id){
+        habitacionGestor.eliminar(id);
+    }
+
+    public void eliminarReserva(int id){
+        reservaGestor.eliminar(id);
+    }
+
+    public void eliminarHuesped(int id){
+        huespedes.eliminar(id);
+    }
+
+    public void eliminarEmpleado(int id){
+        empleadoGestor.eliminar(id);
+    }
+    //falta metodo para actualizar los datos.........
+
 
 
 

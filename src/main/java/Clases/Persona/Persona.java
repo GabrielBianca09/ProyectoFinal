@@ -80,6 +80,10 @@ public abstract class Persona implements Identificable {
         this.numeroCelular = numeroCelular;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /// ToString -------------------------------------------
 
 

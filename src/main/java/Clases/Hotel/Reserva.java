@@ -125,4 +125,8 @@ public class Reserva implements Identificable {
     public int getId() {
         return idreserva;
     }
+
+    public void setIdreserva(int idreserva) {
+        this.idreserva = idreserva;
+    }
 }

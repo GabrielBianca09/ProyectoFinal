@@ -1,5 +1,6 @@
 package gestores;
 
+import Clases.Hotel.Habitacion;
 import Interfaces.Identificable;
 import Exepciones.DatoNoEncontrado;
 import Exepciones.DatosDuplicados;
@@ -54,6 +55,8 @@ public class Gestor<T extends Identificable> {
 
     public List<T> listarTodo(){return new ArrayList<>(lista);
     }
+
+    //falta el metodo para actualizar datos generico
 
 
 }
