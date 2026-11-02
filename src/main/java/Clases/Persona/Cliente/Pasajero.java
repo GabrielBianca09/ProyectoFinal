@@ -1,4 +1,7 @@
-package Clases;
+package Clases.Persona.Cliente;
+
+import Clases.Persona.Persona;
+import Interfaces.Identificable;
 
 public class Pasajero extends Persona {
 
@@ -7,8 +10,8 @@ public class Pasajero extends Persona {
 
     /// Contructor ----------------------------
 
-    public Pasajero(String nombre, String apellido, String dni, String email, String direccionOrigen, String numeroCelular) {
-        super(nombre,apellido,dni,email,numeroCelular);
+    public Pasajero(String nombre, String apellido, String dni, String email, String numeroCelular, int id, String direccionOrigen) {
+        super(nombre, apellido, dni, email, numeroCelular, id);
         this.direccionOrigen = direccionOrigen;
     }
 
@@ -30,4 +33,6 @@ public class Pasajero extends Persona {
     public String toString() {
         return "Reservas.Pasajero {" + super.toString() + "direccionOrigen=" + direccionOrigen + '}';
     }
+
+
 }

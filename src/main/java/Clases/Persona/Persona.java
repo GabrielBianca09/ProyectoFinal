@@ -1,7 +1,10 @@
-package Clases;
+package Clases.Persona;
 
-public abstract class Persona {
+import Interfaces.Identificable;
 
+public abstract class Persona implements Identificable {
+    private static int cont=0;
+    private int id;
     private String nombre;
     private String apellido;
     private String dni;
@@ -12,15 +15,26 @@ public abstract class Persona {
     /// Constructores --------------------------------------
 
 
-    public Persona(String nombre, String apellido, String dni, String email, String numeroCelular) {
+    public Persona(String nombre, String apellido, String dni, String email, String numeroCelular,int id) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
         this.email = email;
         this.numeroCelular = numeroCelular;
+        this.id=cont++;
+    }
+
+
+    @Override
+    public int getId() {
+        return id;
     }
 
     /// Getters -----------------------------------------
+
+
+
+
 
 
     public String getNombre() {

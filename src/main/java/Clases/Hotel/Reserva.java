@@ -1,12 +1,14 @@
-package Clases;
+package Clases.Hotel;
 
+import Clases.Persona.Cliente.Pasajero;
 import Enums.EstadoHabitacion;
 import Enums.Tipo_Habitacion;
+import Interfaces.Identificable;
 
 import java.util.Date;
 import java.util.List;
 
-public class Reserva {
+public class Reserva implements Identificable {
     private static final double simple=750;
     private static final double suite=1500;
     private static final double presidencial=3000;
@@ -16,13 +18,11 @@ public class Reserva {
     private List<Habitacion>habitacionesXreserva;
     private Date fecha;
     private double valorTotal;
-    private Gestor gestor;
     private int cantidadDias;
 
 
-    public Reserva(Date fecha, Gestor gestor, List<Habitacion> habitacionesXreserva, int idreserva, Pasajero pasajero, int cantidadDias) {
+    public Reserva(Date fecha,List<Habitacion> habitacionesXreserva, int idreserva, Pasajero pasajero, int cantidadDias) {
         this.fecha = fecha;
-        this.gestor =new Gestor<>();
         this.habitacionesXreserva = habitacionesXreserva;
         this.idreserva =gencon++;
         this.pasajero = pasajero;
@@ -66,14 +66,6 @@ public class Reserva {
         return idreserva;
     }
 
-    public Gestor getGestor() {
-        return gestor;
-    }
-
-    public void setGestor(Gestor gestor) {
-        this.gestor = gestor;
-    }
-
     public int getCantidadDias() {
         return cantidadDias;
     }
@@ -83,13 +75,22 @@ public class Reserva {
     }
 
     public boolean agregarHabitacion(Habitacion h){
-        if(h.getEstadoHabitacion()== EstadoHabitacion.DISPONIBLE){
-            if(gestor.agregar(h)){
-                h.setEstadoHabitacion(EstadoHabitacion.RESERVADA);
-            }
+        if(h!=null && h.getEstadoHabitacion()==EstadoHabitacion.DISPONIBLE){
+            habitacionesXreserva.add(h);
+            h.setEstadoHabitacion(EstadoHabitacion.RESERVADA);
+            return true;
         }
         return false;
     }
+
+    public void Devolver(Habitacion h){
+        for (Habitacion habitacion:habitacionesXreserva){
+            if(h.getNumeroHabitacion()==habitacion.getNumeroHabitacion()&& h.getEstadoHabitacion()==EstadoHabitacion.RESERVADA){
+                habitacion.setEstadoHabitacion(EstadoHabitacion.DISPONIBLE);
+            }
+        }
+    }
+
 
     public double calcularTotal1habitacion(Habitacion h){
         if(Tipo_Habitacion.presidencial==h.getTipoHabitacion()){
@@ -107,8 +108,21 @@ public class Reserva {
         for(Habitacion h:habitacionesXreserva){
             total+=calcularTotal1habitacion(h);
         }
+        this.valorTotal=total;
         return total;
     }
 
+    public boolean EstaEnLaListaDeHabitaciones(int numeroHabitacion){
+        for(Habitacion h:habitacionesXreserva){
+            if(h.getNumeroHabitacion()==numeroHabitacion){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    @Override
+    public int getId() {
+        return idreserva;
+    }
 }

@@ -1,9 +1,10 @@
-package Clases;
+package Clases.Hotel;
 
 import Enums.EstadoHabitacion;
 import Enums.Tipo_Habitacion;
+import Interfaces.Identificable;
 
-public class Habitacion {
+public class Habitacion implements Identificable {
     private static int numerogen=0;
     private int numeroHabitacion;
     private int capacidadOcupantes;
@@ -68,6 +69,11 @@ public class Habitacion {
 
     public void setTipoHabitacion(Tipo_Habitacion tipoHabitacion) {
         this.tipoHabitacion = tipoHabitacion;
+    }
+
+    @Override
+    public int getId() {
+        return numeroHabitacion;
     }
 
     @Override
