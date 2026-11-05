@@ -11,8 +11,8 @@ public class Empleado extends Persona {
 
     /// Constructor ------------------------------------
 
-    public Empleado(String nombre, String apellido, String dni, String email, String numeroCelular,int id, int horasTrabajadas, String direccion,  double salarioPorHora) {
-        super(nombre, apellido, dni, email, numeroCelular,id);
+    public Empleado(String nombre, String apellido, String dni, String email, String numeroCelular,int horasTrabajadas, String direccion,  double salarioPorHora) {
+        super(nombre, apellido, dni, email, numeroCelular,);
         this.horasTrabajadas = horasTrabajadas;
         this.direccion = direccion;
         this.salarioPorHora = salarioPorHora;

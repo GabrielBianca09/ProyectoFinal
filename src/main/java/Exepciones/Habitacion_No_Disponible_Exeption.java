@@ -2,11 +2,11 @@ package Exepciones;
 
 import Enums.EstadoHabitacion;
 
-public class HabitacionNoDisponible extends Exception {
+public class Habitacion_No_Disponible_Exeption extends Exception {
     private final int id;
     private final EstadoHabitacion estadoHabitacion;
 
-    public HabitacionNoDisponible(EstadoHabitacion estadoHabitacion, int id) {
+    public Habitacion_No_Disponible_Exeption(EstadoHabitacion estadoHabitacion, int id) {
         super("la habitacion"+id+"no esta disponible ya que se encuentra:"+estadoHabitacion);
         this.estadoHabitacion = estadoHabitacion;
         this.id = id;

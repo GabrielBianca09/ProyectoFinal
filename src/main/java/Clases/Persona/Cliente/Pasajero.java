@@ -10,8 +10,8 @@ public class Pasajero extends Persona {
 
     /// Contructor ----------------------------
 
-    public Pasajero(String nombre, String apellido, String dni, String email, String numeroCelular, int id, String direccionOrigen) {
-        super(nombre, apellido, dni, email, numeroCelular, id);
+    public Pasajero(String nombre, String apellido, String dni, String email, String numeroCelular,String direccionOrigen) {
+        super(nombre, apellido, dni, email, numeroCelular);
         this.direccionOrigen = direccionOrigen;
     }
 

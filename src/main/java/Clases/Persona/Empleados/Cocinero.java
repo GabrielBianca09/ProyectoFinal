@@ -4,8 +4,8 @@ public class Cocinero extends Empleado {
 
     /// Constructor -------------------------
 
-    public Cocinero(String nombre, String apellido, String dni, String email, String numeroCelular, int id, int horasTrabajadas, String direccion, double salarioPorHora) {
-        super(nombre, apellido, dni, email, numeroCelular, id, horasTrabajadas, direccion, salarioPorHora);
+    public Cocinero(String nombre, String apellido, String dni, String email, String numeroCelularint horasTrabajadas, String direccion, double salarioPorHora) {
+        super(nombre, apellido, dni, email, numeroCelular, horasTrabajadas, direccion, salarioPorHora);
     }
 
     /// ToString() ------------------------------

@@ -15,7 +15,7 @@ public abstract class Persona implements Identificable {
     /// Constructores --------------------------------------
 
 
-    public Persona(String nombre, String apellido, String dni, String email, String numeroCelular,int id) {
+    public Persona(String nombre, String apellido, String dni, String email, String numeroCelular) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
