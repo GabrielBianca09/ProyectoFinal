@@ -2,6 +2,9 @@ package Clases.Hotel;
 
 import Enums.EstadoHabitacion;
 import Enums.Tipo_Habitacion;
+import Exepciones.Dato_No_Encontrado_Exeption;
+import Exepciones.Habitacion_No_Disponible_Exeption;
+import Exepciones.OperacionInvalida;
 import Interfaces.Identificable;
 
 public class Habitacion implements Identificable {
@@ -14,13 +17,23 @@ public class Habitacion implements Identificable {
 
     /// Constructores ----------------------------
 
-    public Habitacion(int capacidadOcupantes, EstadoHabitacion estadoHabitacion, Hotel hotel, int numeroHabitacion, Tipo_Habitacion tipoHabitacion) {
+    public Habitacion(int capacidadOcupantes, EstadoHabitacion estadoHabitacion, Hotel hotel,Tipo_Habitacion tipoHabitacion) {
         this.capacidadOcupantes = capacidadOcupantes;
         this.estadoHabitacion= EstadoHabitacion.DISPONIBLE;
         this.hotel = hotel;
         this.numeroHabitacion =numerogen++;
         this.tipoHabitacion=tipoHabitacion;
     }
+
+    public void cambiardatosSinCambiarId(Habitacion h){
+        this.capacidadOcupantes=h.getCapacidadOcupantes();
+        this.estadoHabitacion=h.getEstadoHabitacion();
+        this.hotel=h.getHotel();
+        this.tipoHabitacion=h.getTipoHabitacion();
+    }
+
+
+
 
     public int getCapacidadOcupantes() {
         return capacidadOcupantes;
@@ -79,8 +92,39 @@ public class Habitacion implements Identificable {
     }
 
     @Override
+    public void actualizarDatos(Identificable actualizar) {
+       Habitacion h=(Habitacion)actualizar;
+       this.tipoHabitacion=h.getTipoHabitacion();
+       this.hotel=h.getHotel();
+       this.estadoHabitacion=h.getEstadoHabitacion();
+       this.capacidadOcupantes=h.getCapacidadOcupantes();
+    }
+
+
+    public void reservar()throws Habitacion_No_Disponible_Exeption{
+        if(!(estadoHabitacion==EstadoHabitacion.DISPONIBLE)){
+            throw new Habitacion_No_Disponible_Exeption(estadoHabitacion,getId());
+        }
+        this.estadoHabitacion=EstadoHabitacion.RESERVADA;
+    }
+
+    public void devolver(){
+        if(!(estadoHabitacion==EstadoHabitacion.RESERVADA)){
+            throw new OperacionInvalida("la habitacion no esta en un estado elijible");
+        }
+        this.estadoHabitacion=EstadoHabitacion.DISPONIBLE;
+    }
+
+    public void hacerMantenimiento(){
+        if(!(estadoHabitacion==EstadoHabitacion.EN_MANTENIMIENTO)){
+            this.estadoHabitacion=EstadoHabitacion.EN_MANTENIMIENTO;
+        }
+        throw new OperacionInvalida("no se puede realizar la operacion");
+    }
+
+    @Override
     public String toString() {
-        return "Reservas.Habitacion{" +
+        return "Habitacion{" +
                 "capacidadOcupantes=" + capacidadOcupantes +
                 ", numeroHabitacion=" + numeroHabitacion +
                 ", hotel=" + hotel +

@@ -1,12 +1,15 @@
 package Clases.Persona.Empleados;
 
-public class Maestranza extends Empleado {
+import Enums.Tipo_de_Trabajo;
+
+public class Mozos extends Empleado {
 
     /// Constructor ----------------------------------
 
 
-    public Maestranza(String nombre, String apellido, String dni, String email, String numeroCelular,int horasTrabajadas, String direccion, double salarioPorHora) {
+    public Mozos(String nombre, String apellido, String dni, String email, String numeroCelular, int horasTrabajadas, String direccion, double salarioPorHora) {
         super(nombre, apellido, dni, email, numeroCelular, horasTrabajadas, direccion, salarioPorHora);
+        agregarChamba(Tipo_de_Trabajo.ATENCION);
     }
 
     /// ToString() ------------------------------------

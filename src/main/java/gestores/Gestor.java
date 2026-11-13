@@ -24,11 +24,10 @@ public class Gestor<T extends Identificable> {
         return false;
     }
 
-    public void agregar(T element) throws Datos_Duplicados_Exeption {
+    public void agregar(T element) throws Datos_Duplicados_Exeption,Datos_Invalidos_Exeption {
         if (element == null) {
             throw new Datos_Invalidos_Exeption("No se aceptan nulos");
         }
-
         if (existe(element.getId())) {
             throw new Datos_Duplicados_Exeption(element.getId());
         }
@@ -57,17 +56,30 @@ public class Gestor<T extends Identificable> {
 
     //falta el metodo para actualizar datos generico
 
-    public void actualizar(T nuevo,int id){
+    public void actualizar(T nuevo,int id)throws Datos_Invalidos_Exeption,Dato_No_Encontrado_Exeption{
         if (nuevo==null){
-            throw new Datos_Invalidos_Exeption("no se aceptan datos nulos")
+            throw new Datos_Invalidos_Exeption("no se aceptan datos nulos");
         }
-        for(int i=0;i<lista.size();i++){
-            if(lista.get(i).getId()==id){
-                lista.set(i,nuevo);
+        for (T element:lista){
+            if(element.getId()==id){
+                element.actualizarDatos(nuevo);
             }
         }
         throw new Dato_No_Encontrado_Exeption(id);
     }
 
+    @Override
+    public String toString() {
+        return "Gestor{" +
+                "lista=" + lista +
+                '}';
+    }
 
+    public List<T> getLista() {
+        return lista;
+    }
+
+    public void setLista(List<T> lista) {
+        this.lista = lista;
+    }
 }

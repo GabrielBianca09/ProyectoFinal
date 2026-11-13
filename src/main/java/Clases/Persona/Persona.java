@@ -30,12 +30,17 @@ public abstract class Persona implements Identificable {
         return id;
     }
 
+    @Override
+    public void actualizarDatos(Identificable actualizar) {
+        Persona p=(Persona) actualizar;
+        this.nombre =p.getNombre();
+        this.apellido =p.getApellido();
+        this.dni =p.getDni();
+        this.email =p.getEmail();
+        this.numeroCelular =p.getNumeroCelular();
+    }
+
     /// Getters -----------------------------------------
-
-
-
-
-
 
     public String getNombre() {
         return nombre;

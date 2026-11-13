@@ -1,5 +1,7 @@
 package Clases.Persona.Empleados;
 
+import Enums.Tipo_de_Trabajo;
+
 public class Conserje extends Empleado {
 
     /// Constuctor -----------------------------
@@ -7,6 +9,8 @@ public class Conserje extends Empleado {
 
     public Conserje(String nombre, String apellido, String dni, String email, String numeroCelular,int horasTrabajadas, String direccion, double salarioPorHora) {
         super(nombre, apellido, dni, email, numeroCelular,horasTrabajadas, direccion, salarioPorHora);
+        agregarChamba(Tipo_de_Trabajo.LIMPIEZA);
+        agregarChamba(Tipo_de_Trabajo.MANTENIMIENTO);
     }
 
     /// ToString() -------------------------------

@@ -1,11 +1,12 @@
 package Clases.Persona.Admin;
 
 import Clases.Hotel.Habitacion;
-import Clases.Hotel.Reserva;
+import Clases.Hotel.Reservas.Reserva;
 import Clases.Persona.Cliente.Pasajero;
 import Clases.Persona.Empleados.Empleado;
 import Clases.Persona.Persona;
 import Exepciones.Dato_No_Encontrado_Exeption;
+import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
 import gestores.GestorHotel;
 
@@ -44,19 +45,19 @@ public class Administrador extends Persona {
         return id_Admin;
     }
 
-    private void altaEmpleado(Empleado e)throws Datos_Invalidos_Exeption {
+    private void altaEmpleado(Empleado e)throws Datos_Invalidos_Exeption, Datos_Duplicados_Exeption {
         gestorHotel.agregarEmpleado(e);
     }
 
-    private void altaHabitacion(Habitacion h)throws Datos_Invalidos_Exeption{
+    private void altaHabitacion(Habitacion h)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
         gestorHotel.agregarHabitacion(h);
     }
 
-    private void altaCliente(Pasajero p)throws Datos_Invalidos_Exeption{
+    private void altaCliente(Pasajero p)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
         gestorHotel.agregarCliente(p);
     }
 
-    private void altaReserva(Reserva r)throws Datos_Invalidos_Exeption{
+    private void altaReserva(Reserva r)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
         gestorHotel.agregarReserva(r);
     }
 
