@@ -255,5 +255,10 @@ public class GestorHotel {
         this.hoteles = hoteles;
     }
 
+    public void mostrarEmpleados(){
+        for (Empleado e:getEmpleadoGestor().getLista()){
+            System.out.println(e.toString());
+        }
+    }
 
 }

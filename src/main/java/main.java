@@ -57,8 +57,8 @@ public class main {
 
         MenuHabitacion menuHabitacion=new MenuHabitacion(gestorHotel);
         try {
-            menuHabitacion.OperacionesConHabitaciones();
-        }catch (Datos_Duplicados_Exeption  | Datos_Invalidos_Exeption e){
+            menuHabitacion.operacionesConHabitaciones();
+        }catch ( Datos_Invalidos_Exeption e){
             System.out.println("error"+e.getMessage());
         }
 

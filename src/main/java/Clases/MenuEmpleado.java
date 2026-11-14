@@ -53,7 +53,7 @@ public class MenuEmpleado {
                             leer.nextLine();
 
                             if (opcion < 1 || opcion > 6) {
-                                throw new Datos_Invalidos_Exeption();
+                                throw new Datos_Invalidos_Exeption("datos invalidos");
                             }
 
                             System.out.println("Ingrese el nombre:");
@@ -165,7 +165,7 @@ public class MenuEmpleado {
                             empleado.setHorasTrabajadas(horas);
                             empleado.setDireccion(direccion);
                             empleado.setSalarioBase(salario);
-
+                            gestorHotel.actualizarEmpleado(id,empleado);
                             System.out.println("Empleado actualizado correctamente");
 
                         } catch (Dato_No_Encontrado_Exeption e) {

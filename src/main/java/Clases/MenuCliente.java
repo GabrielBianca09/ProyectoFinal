@@ -56,9 +56,12 @@ public class MenuCliente {
                             System.out.println("Ingrese numero de celular:");
                             String numeroCelular = leer.nextLine();
 
+                            System.out.println("ingrese direccion:");
+                            String direccion = leer.nextLine();
 
 
-                            Pasajero p = new (nombre,apellido,dni,email,numeroCelular);
+
+                            Pasajero p = new Pasajero(nombre,apellido,dni,email,numeroCelular,direccion);
 
                             gestorHotel.agregarCliente(p);
 

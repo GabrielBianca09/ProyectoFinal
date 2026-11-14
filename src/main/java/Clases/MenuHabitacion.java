@@ -1,4 +1,3 @@
-
 package Clases;
 
 import Clases.Hotel.Habitacion;
@@ -23,353 +22,184 @@ public class MenuHabitacion {
         this.gestorHotel = gestorHotel;
     }
 
-    public GestorHotel getGestorHotel() {
-        return gestorHotel;
-    }
-
-    public void setGestorHotel(GestorHotel gestorHotel) {
-        this.gestorHotel = gestorHotel;
-    }
-
-    public Scanner getLeer() {
-        return leer;
-    }
-
-    public void setLeer(Scanner leer) {
-        this.leer = leer;
-    }
-
-    public void OperacionesConHabitaciones() throws Datos_Duplicados_Exeption {
+    public void operacionesConHabitaciones() {
 
         int op = -1;
 
         do {
-            System.out.println("ingrese una opcion ");
+            System.out.println("\n--- MENU Habitacion ---");
             System.out.println("1. Agregar Habitacion");
             System.out.println("2. Listar Habitaciones");
             System.out.println("3. Eliminar Habitacion");
             System.out.println("4. Actualizar Habitacion");
             System.out.println("0. Salir");
 
-            op = leer.nextInt();
+            try {
+                op = leer.nextInt();
+                leer.nextLine();
 
-            switch (op) {
+                switch (op) {
 
-                case 1:
-
-                    Habitacion h = null;
-                    gestorHotel.listarHoteles();
-
-                    int numhotel = -1;
-                    int capacidad;
-                    Hotel hotel = null;
-
-                    while (true) {
+                    case 1:
                         try {
-                            System.out.println("ingrese el numero de hotel valido:");
-                            numhotel = leer.nextInt();
+                            gestorHotel.listarHoteles();
+                            System.out.println("Ingrese el numero de hotel:");
+                            int numHotel = leer.nextInt();
                             leer.nextLine();
 
-                            gestorHotel.existeHotel(numhotel);
-                            hotel = gestorHotel.BuscarHotel(numhotel);
+                            gestorHotel.existeHotel(numHotel);
+                            Hotel hotel = gestorHotel.BuscarHotel(numHotel);
 
-                            break;
-
-                        } catch (InputMismatchException e) {
-                            System.out.println("error solo datos enteros");
-                            leer.nextLine();
-
-                        } catch (Dato_No_Encontrado_Exeption e) {
-                            System.out.println("El hotel no existe");
-                        }
-                    }
-
-                    while (true) {
-                        try {
-                            System.out.println("ingrese la capacidad de la habitacion: ");
-                            capacidad = leer.nextInt();
+                            System.out.println("Ingrese la capacidad de la habitacion:");
+                            int capacidad = leer.nextInt();
                             leer.nextLine();
 
                             if (capacidad <= 0) {
-                                throw new Datos_Invalidos_Exeption("la capacidad debe ser mayor a 0");
+                                throw new Datos_Invalidos_Exeption("La capacidad debe ser mayor a 0");
                             }
 
-                            break;
+                            Tipo_Habitacion tipo = pedirTipo();
+                            EstadoHabitacion estado = pedirEstado();
 
-                        } catch (InputMismatchException e) {
-                            System.out.println("error solo datos enteros");
-                            leer.nextLine();
+                            gestorHotel.agregarHabitacion(new Habitacion(capacidad, estado, hotel, tipo));
 
-                        } catch (Datos_Invalidos_Exeption e) {
-                            System.out.println(e.getMessage());
-                        }
-                    }
-
-                    int opciontipo = 0;
-
-                    while (opciontipo != 1 && opciontipo != 2 && opciontipo != 3) {
-                        try {
-                            System.out.println("tipo de habitacion seleccione una de las siguientes : ");
-                            System.out.println("1 Simple");
-                            System.out.println("2 Presidencial");
-                            System.out.println("3 Suite");
-
-                            opciontipo = leer.nextInt();
-
-                            if (opciontipo != 1 && opciontipo != 2 && opciontipo != 3) {
-                                System.out.println("ingrese una opcion valida");
-                            }
-
-                        } catch (InputMismatchException e) {
-                            System.out.println("error solo datos enteros");
-                            leer.nextLine();
-                        }
-                    }
-
-                    Tipo_Habitacion tipo = null;
-
-                    switch (opciontipo) {
-                        case 1:
-                            tipo = Tipo_Habitacion.simple;
-                            break;
-
-                        case 2:
-                            tipo = Tipo_Habitacion.presidencial;
-                            break;
-
-                        case 3:
-                            tipo = Tipo_Habitacion.suite;
-                            break;
-                    }
-
-                    int opcionEstado = 0;
-
-                    while (opcionEstado != 1 && opcionEstado != 2 && opcionEstado != 3) {
-                        try {
-                            System.out.println("Seleccione el nuevo estado de la habitación:");
-                            System.out.println("1 - Disponible");
-                            System.out.println("2 - Reservada");
-                            System.out.println("3 - En mantenimiento");
-
-                            opcionEstado = leer.nextInt();
-                            leer.nextLine();
-
-                            if (opcionEstado != 1 && opcionEstado != 2 && opcionEstado != 3) {
-                                System.out.println("Ingrese una opción válida.");
-                            }
-
-                        } catch (InputMismatchException e) {
-                            System.out.println("Error: solo se permiten números enteros.");
-                            leer.nextLine();
-                        }
-                    }
-
-                    EstadoHabitacion estado = null;
-
-                    switch (opcionEstado) {
-                        case 1:
-                            estado = EstadoHabitacion.DISPONIBLE;
-                            break;
-
-                        case 2:
-                            estado = EstadoHabitacion.RESERVADA;
-                            break;
-
-                        case 3:
-                            estado = EstadoHabitacion.EN_MANTENIMIENTO;
-                            break;
-                    }
-
-                    gestorHotel.agregarHabitacion(new Habitacion(capacidad, estado, hotel, tipo));
-
-                    break;
-
-                case 2:
-
-                    gestorHotel.mostrarHabitaciones();
-                    break;
-
-                case 3:
-
-                    while (true) {
-                        try {
-                            gestorHotel.mostrarHabitaciones();
-                            System.out.println("ingrese un numero de habitacion a eliminar:");
-
-                            int nroHabitacion = leer.nextInt();
-                            leer.nextLine();
-
-                            if (nroHabitacion <= 0) {
-                                throw new Datos_Invalidos_Exeption("el id debe ser mayor a 0");
-                            }
-
-                            gestorHotel.eliminarHabitacion(nroHabitacion);
-                            System.out.println("habitacion eliminada con exito");
-
-                            break;
-
-                        } catch (InputMismatchException e) {
-                            System.out.println("error solo datos enteros");
-                            leer.nextLine();
+                            System.out.println("Habitacion agregada correctamente");
 
                         } catch (Dato_No_Encontrado_Exeption e) {
-                            System.out.println("error la habitacion no existe");
+                            System.out.println("El hotel no existe");
 
                         } catch (Datos_Invalidos_Exeption e) {
                             System.out.println(e.getMessage());
+
+                        } catch (Datos_Duplicados_Exeption e) {
+                            System.out.println(e.getMessage());
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("Debe ingresar un valor del tipo correcto.");
+                            leer.nextLine();
                         }
-                    }
+                        break;
 
-                    break;
+                    case 2:
+                        gestorHotel.mostrarHabitaciones();
+                        break;
 
-                case 4:
-
-                    while (true) {
+                    case 3:
                         try {
                             gestorHotel.mostrarHabitaciones();
-                            System.out.println("Ingrese un ID para actualizar:");
-
-                            int buscado = leer.nextInt();
+                            System.out.println("Ingrese el numero de habitacion a eliminar:");
+                            int nro = leer.nextInt();
                             leer.nextLine();
 
-                            int nuevacapacidad;
+                            if (nro <= 0) {
+                                throw new Datos_Invalidos_Exeption("El numero debe ser mayor a 0");
+                            }
 
-                            if (buscado <= 0) {
+                            gestorHotel.eliminarHabitacion(nro);
+                            System.out.println("Habitacion eliminada con exito");
+
+                        } catch (Dato_No_Encontrado_Exeption e) {
+                            System.out.println("La habitacion no existe");
+
+                        } catch (Datos_Invalidos_Exeption e) {
+                            System.out.println(e.getMessage());
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("Debe ingresar un valor del tipo correcto.");
+                            leer.nextLine();
+                        }
+                        break;
+
+                    case 4:
+                        try {
+                            gestorHotel.mostrarHabitaciones();
+                            System.out.println("Ingrese el ID de la habitacion a actualizar:");
+                            int id = leer.nextInt();
+                            leer.nextLine();
+
+                            if (id <= 0) {
                                 throw new Datos_Invalidos_Exeption("El ID debe ser mayor a 0");
                             }
 
-                            Habitacion h1 = gestorHotel.buscarHabitacion(buscado);
-                            System.out.println(h1.toString());
+                            Habitacion h = gestorHotel.buscarHabitacion(id);
+                            System.out.println("Habitacion encontrada: " + h);
 
-                            if (gestorHotel.existeHabitacion(h1.getId())) {
-
-                                while (true) {
-                                    try {
-                                        System.out.println("Ingrese la capacidad de la habitación:");
-                                        nuevacapacidad = leer.nextInt();
-                                        leer.nextLine();
-
-                                        if (nuevacapacidad <= 0) {
-                                            throw new Datos_Invalidos_Exeption("La capacidad debe ser mayor a 0");
-                                        }
-
-                                        break;
-
-                                    } catch (InputMismatchException e) {
-                                        System.out.println("Error: solo datos enteros");
-                                        leer.nextLine();
-
-                                    } catch (Datos_Invalidos_Exeption e) {
-                                        System.out.println(e.getMessage());
-                                    }
-                                }
-
-                                int optipo = 0;
-
-                                while (optipo != 1 && optipo != 2 && optipo != 3) {
-                                    try {
-                                        System.out.println("Tipo de habitación:");
-                                        System.out.println("1 Simple");
-                                        System.out.println("2 Presidencial");
-                                        System.out.println("3 Suite");
-
-                                        optipo = leer.nextInt();
-                                        leer.nextLine();
-
-                                        if (optipo != 1 && optipo != 2 && optipo != 3) {
-                                            System.out.println("Ingrese una opción válida");
-                                        }
-
-                                    } catch (InputMismatchException e) {
-                                        System.out.println("Error: solo datos enteros");
-                                        leer.nextLine();
-                                    }
-                                }
-
-                                Tipo_Habitacion tipoHabitacion = null;
-
-                                switch (optipo) {
-                                    case 1:
-                                        tipoHabitacion = Tipo_Habitacion.simple;
-                                        break;
-
-                                    case 2:
-                                        tipoHabitacion = Tipo_Habitacion.presidencial;
-                                        break;
-
-                                    case 3:
-                                        tipoHabitacion = Tipo_Habitacion.suite;
-                                        break;
-                                }
-
-                                int opEreserva = 0;
-
-                                while (opEreserva != 1 && opEreserva != 2 && opEreserva != 3) {
-                                    try {
-                                        System.out.println("Seleccione el nuevo estado de la habitación:");
-                                        System.out.println("1 - Disponible");
-                                        System.out.println("2 - Reservada");
-                                        System.out.println("3 - En mantenimiento");
-
-                                        opEreserva = leer.nextInt();
-                                        leer.nextLine();
-
-                                        if (opEreserva != 1 && opEreserva != 2 && opEreserva != 3) {
-                                            System.out.println("Ingrese una opción válida.");
-                                        }
-
-                                    } catch (InputMismatchException e) {
-                                        System.out.println("Error: solo se permiten números enteros.");
-                                        leer.nextLine();
-                                    }
-                                }
-
-                                EstadoHabitacion estadoreserva = null;
-
-                                switch (opEreserva) {
-                                    case 1:
-                                        estadoreserva = EstadoHabitacion.DISPONIBLE;
-                                        break;
-
-                                    case 2:
-                                        estadoreserva = EstadoHabitacion.RESERVADA;
-                                        break;
-
-                                    case 3:
-                                        estadoreserva = EstadoHabitacion.EN_MANTENIMIENTO;
-                                        break;
-                                }
-
-                                h1.setCapacidadOcupantes(nuevacapacidad);
-                                h1.setTipoHabitacion(tipoHabitacion);
-                                h1.setEstadoHabitacion(estadoreserva);
-
-                                gestorHotel.actualizarHabitacion(h1.getId(), h1);
-
-                                System.out.println("Habitación actualizada con éxito");
-                            }
-
-                            break;
-
-                        } catch (InputMismatchException e) {
-                            System.out.println("Error: solo datos enteros");
+                            System.out.println("Ingrese la nueva capacidad:");
+                            int capacidad = leer.nextInt();
                             leer.nextLine();
 
+                            if (capacidad <= 0) {
+                                throw new Datos_Invalidos_Exeption("La capacidad debe ser mayor a 0");
+                            }
+
+                            h.setCapacidadOcupantes(capacidad);
+                            h.setTipoHabitacion(pedirTipo());
+                            h.setEstadoHabitacion(pedirEstado());
+
+                            gestorHotel.actualizarHabitacion(h.getId(), h);
+
+                            System.out.println("Habitacion actualizada con exito");
+
                         } catch (Dato_No_Encontrado_Exeption e) {
-                            System.out.println("Error: la habitación no existe");
+                            System.out.println("La habitacion no existe");
 
                         } catch (Datos_Invalidos_Exeption e) {
                             System.out.println(e.getMessage());
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("Debe ingresar un valor del tipo correcto.");
+                            leer.nextLine();
                         }
-                    }
+                        break;
 
-                    break;
+                    case 0:
+                        System.out.println("Saliendo del menu de habitaciones");
+                        break;
 
-                case 0:
-                    System.out.println("Salir");
-                    break;
+                    default:
+                        System.out.println("Ingrese una opcion valida");
+                        break;
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Debe ingresar un numero entero");
+                leer.nextLine();
             }
 
         } while (op != 0);
+    }
+
+    private Tipo_Habitacion pedirTipo() throws Datos_Invalidos_Exeption {
+        System.out.println("Tipo de habitacion:");
+        System.out.println("1. Simple");
+        System.out.println("2. Presidencial");
+        System.out.println("3. Suite");
+
+        int opcion = leer.nextInt();
+        leer.nextLine();
+
+        switch (opcion) {
+            case 1: return Tipo_Habitacion.simple;
+            case 2: return Tipo_Habitacion.presidencial;
+            case 3: return Tipo_Habitacion.suite;
+            default: throw new Datos_Invalidos_Exeption("Tipo de habitacion invalido");
+        }
+    }
+
+    private EstadoHabitacion pedirEstado() throws Datos_Invalidos_Exeption {
+        System.out.println("Estado de la habitacion:");
+        System.out.println("1. Disponible");
+        System.out.println("2. Reservada");
+        System.out.println("3. En mantenimiento");
+
+        int opcion = leer.nextInt();
+        leer.nextLine();
+
+        switch (opcion) {
+            case 1: return EstadoHabitacion.DISPONIBLE;
+            case 2: return EstadoHabitacion.RESERVADA;
+            case 3: return EstadoHabitacion.EN_MANTENIMIENTO;
+            default: throw new Datos_Invalidos_Exeption("Estado de habitacion invalido");
+        }
     }
 }
