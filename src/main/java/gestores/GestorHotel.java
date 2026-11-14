@@ -206,6 +206,11 @@ public class GestorHotel {
         }
    }
 
+   public void mostrarhuespedes(){
+        for (Pasajero p:huespedes.getLista()){
+            System.out.println(p.toString());
+        }
+   }
    public double calcularSueldo(Empleado e){
         double total=e.getSalarioBase();
         for (Servicio s:servicioGestor.getLista()){
@@ -222,6 +227,24 @@ public class GestorHotel {
         for (Hotel h:hoteles.getLista()){
             System.out.println(h.toString());
         }
+   }
+
+   public boolean existePasajero(int id){
+        for (Pasajero p:huespedes.getLista()){
+            if(p.getId()==id){
+                return true;
+            }
+        }
+        return false;
+   }
+
+   public Pasajero buscarPasajero(int id)throws Dato_No_Encontrado_Exeption{
+        for (Pasajero p:huespedes.getLista()){
+            if(p.getId()==id){
+                return p;
+            }
+        }
+        throw new Dato_No_Encontrado_Exeption(id);
    }
 
     public Gestor<Hotel> getHoteles() {
