@@ -9,6 +9,7 @@ import Exepciones.Habitacion_No_Disponible_Exeption;
 import Interfaces.CalcularCosto;
 import Interfaces.Identificable;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,12 +26,12 @@ public class Reserva implements Identificable, CalcularCosto {
     private int cantidadDias;
 
 
-    public Reserva(Date fecha,List<Habitacion> habitacionesXreserva, int idreserva, Pasajero pasajero, int cantidadDias) {
+    public Reserva(Date fecha,int idreserva, Pasajero pasajero, int cantidadDias) {
         this.fecha = fecha;
-        this.habitacionesXreserva = habitacionesXreserva;
+        this.habitacionesXreserva =new ArrayList<Habitacion>();
         this.idreserva =gencon++;
         this.pasajero = pasajero;
-        this.valorTotal = valorTotal;
+        this.valorTotal =0;
         this.cantidadDias=cantidadDias;
     }
 
@@ -95,6 +96,7 @@ public class Reserva implements Identificable, CalcularCosto {
         }
         return false;
     }
+
     public void finalizarReserva(Habitacion habitacion)throws Dato_No_Encontrado_Exeption{
         int pos=-1;
         pos=buscarHabitacion(habitacion.getId());

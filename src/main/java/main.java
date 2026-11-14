@@ -1,38 +1,42 @@
-import Clases.Hotel.Habitacion;
 import Clases.Hotel.Hotel;
 import Clases.Hotel.Servicios.EmpleadoServicio;
 import Clases.Hotel.Servicios.Servicio;
+import Clases.MenuHabitacion;
 import Clases.Persona.Empleados.Empleado;
 import Clases.Persona.Empleados.Mozos;
-import Enums.EstadoHabitacion;
-import Enums.Tipo_Habitacion;
 import Enums.Tipo_de_Trabajo;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
-import gestores.Gestor;
 import gestores.GestorHotel;
-
-import java.util.GregorianCalendar;
 
 public class main {
     public static void main(String[] args) {
 
-        Hotel h1=new Hotel("Hotel Costa Galana", "Av. Peralta Ramos 5725","Mar del Plata");
-        Habitacion habitacion1=new Habitacion(5, EstadoHabitacion.DISPONIBLE,h1, Tipo_Habitacion.presidencial);
-        Habitacion habitacion2=new Habitacion(8, EstadoHabitacion.DISPONIBLE,h1, Tipo_Habitacion.simple);
-        Habitacion habitacion3=new Habitacion(4, EstadoHabitacion.DISPONIBLE,h1, Tipo_Habitacion.suite);
+
+//        Habitacion habitacion1=new Habitacion(5, EstadoHabitacion.DISPONIBLE,h1, Tipo_Habitacion.presidencial);
+//        Habitacion habitacion2=new Habitacion(8, EstadoHabitacion.DISPONIBLE,h1, Tipo_Habitacion.simple);
+//        Habitacion habitacion3=new Habitacion(4, EstadoHabitacion.DISPONIBLE,h1, Tipo_Habitacion.suite);
+//
+//        GestorHotel gestorHotel=new GestorHotel();
+//        try {
+//            gestorHotel.agregarHabitacion(habitacion1);
+//            gestorHotel.agregarHabitacion(habitacion2);
+//            gestorHotel.agregarHabitacion(habitacion3);
+//            gestorHotel.mostrarHabitaciones();
+//        }catch (Datos_Invalidos_Exeption e){
+//            System.out.println("no se aceptan datos nulos");
+//        }catch (Datos_Duplicados_Exeption e){
+//            System.out.println(e.getMessage());
+//        }
 
         GestorHotel gestorHotel=new GestorHotel();
         try {
-            gestorHotel.agregarHabitacion(habitacion1);
-            gestorHotel.agregarHabitacion(habitacion2);
-            gestorHotel.agregarHabitacion(habitacion3);
-            gestorHotel.mostrarHabitaciones();
-        }catch (Datos_Invalidos_Exeption e){
-            System.out.println("no se aceptan datos nulos");
-        }catch (Datos_Duplicados_Exeption e){
-            System.out.println(e.getMessage());
+            gestorHotel.agregarHotel(new Hotel("Hotel Costa Galana", "Av. Peralta Ramos 5725","Mar del Plata"));
+
+        }catch (Datos_Invalidos_Exeption | Datos_Duplicados_Exeption e){
+            System.out.println("Error al agregar el hotel");
         }
+
 
 
         try {
@@ -46,9 +50,20 @@ public class main {
             gestorHotel.mostrarServicios();
 
 
+
         }catch (Datos_Invalidos_Exeption| Datos_Duplicados_Exeption e){
             System.out.println("error");
         }
+
+        MenuHabitacion menuHabitacion=new MenuHabitacion(gestorHotel);
+        try {
+            menuHabitacion.OperacionesConHabitaciones();
+        }catch (Datos_Duplicados_Exeption  | Datos_Invalidos_Exeption e){
+            System.out.println("error"+e.getMessage());
+        }
+
         
     }
+
+
 }

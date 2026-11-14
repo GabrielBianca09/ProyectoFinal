@@ -68,13 +68,6 @@ public class Gestor<T extends Identificable> {
         throw new Dato_No_Encontrado_Exeption(id);
     }
 
-    @Override
-    public String toString() {
-        return "Gestor{" +
-                "lista=" + lista +
-                '}';
-    }
-
     public List<T> getLista() {
         return lista;
     }

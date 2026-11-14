@@ -1,6 +1,7 @@
 package Clases.Persona.Cliente;
 
 import Clases.Persona.Persona;
+import Exepciones.Datos_Invalidos_Exeption;
 import Interfaces.Identificable;
 
 public class Pasajero extends Persona {
@@ -24,6 +25,9 @@ public class Pasajero extends Persona {
     /// Setters -----------------------------
 
     public void setDireccionOrigen(String direccionOrigen) {
+        if (direccionOrigen == null || direccionOrigen.isBlank()) {
+            throw new Datos_Invalidos_Exeption("La dirección de origen no puede estar vacía");
+        }
         this.direccionOrigen = direccionOrigen;
     }
 

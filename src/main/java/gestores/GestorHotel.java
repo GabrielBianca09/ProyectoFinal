@@ -1,5 +1,6 @@
 package gestores;
 
+import Clases.Hotel.Hotel;
 import Clases.Hotel.Servicios.EmpleadoServicio;
 import Clases.Hotel.Servicios.Servicio;
 import Clases.Persona.Empleados.Empleado;
@@ -9,6 +10,7 @@ import Clases.Hotel.Reservas.Reserva;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
+import Exepciones.Habitacion_No_Disponible_Exeption;
 
 public class GestorHotel {
     private Gestor<Reserva>reservaGestor;
@@ -16,6 +18,7 @@ public class GestorHotel {
     private Gestor<Pasajero>huespedes;
     private Gestor<Empleado>empleadoGestor;
     private Gestor<Servicio>servicioGestor;
+    private Gestor<Hotel>hoteles;
 
     public GestorHotel() {
         this.empleadoGestor =new Gestor<Empleado>();
@@ -23,6 +26,7 @@ public class GestorHotel {
         this.huespedes =new Gestor<Pasajero>();
         this.reservaGestor =new Gestor<Reserva>();
         this.servicioGestor=new Gestor<Servicio>();
+        this.hoteles=new Gestor<Hotel>();
     }
 
     public Gestor<Empleado> getEmpleadoGestor() {
@@ -68,18 +72,26 @@ public class GestorHotel {
     public void agregarHabitacion(Habitacion h)throws Datos_Duplicados_Exeption {
         habitacionGestor.agregar(h);
     }
+
     public void agregarCliente(Pasajero p)throws Datos_Duplicados_Exeption, Datos_Invalidos_Exeption {
         huespedes.agregar(p);
     }
+
     public void agregarEmpleado(Empleado e)throws Datos_Duplicados_Exeption{
         empleadoGestor.agregar(e);
     }
+
     public void agregarReserva(Reserva r)throws Datos_Duplicados_Exeption{
         reservaGestor.agregar(r);
     }
+    public void agregarHabitacionReserva(int idReserva,int idhabitacion)throws Dato_No_Encontrado_Exeption,Habitacion_No_Disponible_Exeption{
+        Reserva r=reservaGestor.buscar(idReserva);
+        Habitacion h=habitacionGestor.buscar(idhabitacion);
+        r.agregarHabitacion(h);
+    }
 
 
-    public Habitacion buscar(int id)throws Dato_No_Encontrado_Exeption {
+    public Habitacion buscarHabitacion(int id)throws Dato_No_Encontrado_Exeption {
        Habitacion h=habitacionGestor.buscar(id);
        return h;
     }
@@ -100,6 +112,7 @@ public class GestorHotel {
     public void eliminarHabitacion(int id)throws Dato_No_Encontrado_Exeption{
         habitacionGestor.eliminar(id);
     }
+
 
     public void eliminarReserva(int id)throws Dato_No_Encontrado_Exeption{
         reservaGestor.eliminar(id);
@@ -130,6 +143,10 @@ public class GestorHotel {
         empleadoGestor.actualizar(e,id);
     }
 
+    public void actualizarHotel(int id,Hotel h)throws Datos_Duplicados_Exeption,Dato_No_Encontrado_Exeption{
+        hoteles.actualizar(h,id);
+    }
+
     public void agregarServicio(Servicio s)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
         servicioGestor.agregar(s);
     }
@@ -143,6 +160,39 @@ public class GestorHotel {
     public void actualizarServicio(int id,Servicio s)throws Dato_No_Encontrado_Exeption{
         servicioGestor.actualizar(s,id);
     }
+
+        public void agregarHotel(Hotel h)throws Datos_Duplicados_Exeption{
+        hoteles.agregar(h);
+    }
+
+    public Hotel BuscarHotel(int id)throws Dato_No_Encontrado_Exeption{
+        return hoteles.buscar(id);
+    }
+
+    public void eliminarHotel(int id)throws Dato_No_Encontrado_Exeption{
+        Hotel h=hoteles.buscar(id);
+        hoteles.eliminar(id);
+    }
+
+    public boolean existeHabitacion(int id)throws Dato_No_Encontrado_Exeption{
+        for (Habitacion h:habitacionGestor.getLista()){
+            if(h.getId()==id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean existeHotel(int id)throws Dato_No_Encontrado_Exeption{
+        for (Hotel h:hoteles.getLista()){
+            if(h.getId()==id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
    public void mostrarHabitaciones(){
         for (Habitacion h:habitacionGestor.getLista()){
@@ -167,4 +217,20 @@ public class GestorHotel {
         }
         return total;
    }
+
+   public void listarHoteles(){
+        for (Hotel h:hoteles.getLista()){
+            System.out.println(h.toString());
+        }
+   }
+
+    public Gestor<Hotel> getHoteles() {
+        return hoteles;
+    }
+
+    public void setHoteles(Gestor<Hotel> hoteles) {
+        this.hoteles = hoteles;
+    }
+
+
 }

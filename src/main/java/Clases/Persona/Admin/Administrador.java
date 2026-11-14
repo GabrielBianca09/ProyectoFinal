@@ -49,15 +49,16 @@ public class Administrador extends Persona {
         gestorHotel.agregarEmpleado(e);
     }
 
-    private void altaHabitacion(Habitacion h)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
+
+    public void altaHabitacion(Habitacion h)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
         gestorHotel.agregarHabitacion(h);
     }
 
-    private void altaCliente(Pasajero p)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
+    public void altaCliente(Pasajero p)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
         gestorHotel.agregarCliente(p);
     }
 
-    private void altaReserva(Reserva r)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
+    public void altaReserva(Reserva r)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
         gestorHotel.agregarReserva(r);
     }
 

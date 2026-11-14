@@ -73,9 +73,6 @@ public class Habitacion implements Identificable {
         return numeroHabitacion;
     }
 
-    public void setNumeroHabitacion(int numeroHabitacion) {
-        this.numeroHabitacion = numeroHabitacion;
-    }
 
     public Tipo_Habitacion getTipoHabitacion() {
         return tipoHabitacion;
@@ -125,11 +122,10 @@ public class Habitacion implements Identificable {
     @Override
     public String toString() {
         return "Habitacion{" +
-                "capacidadOcupantes=" + capacidadOcupantes +
+                "tipoHabitacion=" + tipoHabitacion +
                 ", numeroHabitacion=" + numeroHabitacion +
-                ", hotel=" + hotel +
                 ", estadoHabitacion=" + estadoHabitacion +
-                ", tipoHabitacion=" + tipoHabitacion +
+                ", capacidadOcupantes=" + capacidadOcupantes +
                 '}';
     }
 }

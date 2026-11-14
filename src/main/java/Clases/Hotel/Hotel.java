@@ -1,7 +1,11 @@
 package Clases.Hotel;
 
-public class Hotel {
+import Interfaces.Identificable;
 
+public class Hotel implements Identificable {
+
+    private static int contador = 0;
+    private int id_hotel;
     private String nombreHotel;
     private String direccionHotel;
     private String numeroContactoHotel;
@@ -12,6 +16,7 @@ public class Hotel {
         this.nombreHotel = nombreHotel;
         this.direccionHotel = direccionHotel;
         this.numeroContactoHotel = numeroContactoHotel;
+        this.id_hotel =contador++;
     }
 
     /// Getters -------------------------------------------
@@ -25,6 +30,9 @@ public class Hotel {
 
     public String getNumeroContactoHotel() {
         return numeroContactoHotel;
+    }
+    public int getId_hotel() {
+        return id_hotel;
     }
 
     /// Setters ----------------------------------------------
@@ -41,14 +49,32 @@ public class Hotel {
         this.numeroContactoHotel = numeroContactoHotel;
     }
 
-    /// To String() --------------------------------------------
 
     @Override
     public String toString() {
-        return "Clases.Empleados.Hotel{" +
-                "nombreHotel='" + nombreHotel + '\'' +
-                ", direccionHotel='" + direccionHotel + '\'' +
+        return "Hotel{" +
+                "direccionHotel='" + direccionHotel + '\'' +
+                ", id_hotel=" + id_hotel +
+                ", nombreHotel='" + nombreHotel + '\'' +
                 ", numeroContactoHotel='" + numeroContactoHotel + '\'' +
                 '}';
+    }
+
+    /// To String() --------------------------------------------
+
+
+
+    @Override
+    public int getId() {
+        return id_hotel;
+    }
+
+    @Override
+    public void actualizarDatos(Identificable NuevosDatos) {
+        Hotel hotel = (Hotel) NuevosDatos;
+        this.nombreHotel = hotel.getNombreHotel();
+        this.direccionHotel = hotel.getDireccionHotel();
+        this.numeroContactoHotel = hotel.getNumeroContactoHotel();
+        this.id_hotel = hotel.getId_hotel();
     }
 }

@@ -1,5 +1,6 @@
 package Clases.Persona;
 
+import Exepciones.Datos_Invalidos_Exeption;
 import Interfaces.Identificable;
 
 public abstract class Persona implements Identificable {
@@ -16,11 +17,11 @@ public abstract class Persona implements Identificable {
 
 
     public Persona(String nombre, String apellido, String dni, String email, String numeroCelular) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.email = email;
-        this.numeroCelular = numeroCelular;
+        setApellido(apellido);
+        setDni(dni);
+        setEmail(email);
+        setNumeroCelular(numeroCelular);
+        setNombre(nombre);
         this.id=cont++;
     }
 
@@ -64,24 +65,38 @@ public abstract class Persona implements Identificable {
 
     /// Setters ------------------------------------------
 
-
-    public void setNombre(String nombre) {
+    public void setNombre(String nombre){
+        if (nombre == null || nombre.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El nombre no puede estar vacío");
+        }
         this.nombre = nombre;
     }
 
-    public void setApellido(String apellido) {
+    public void setApellido(String apellido){
+        if (apellido == null || apellido.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El apellido no puede estar vacío");
+        }
         this.apellido = apellido;
     }
 
-    public void setDni(String dni) {
+    public void setDni(String dni){
+        if (dni == null || dni.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El DNI no puede estar vacío");
+        }
         this.dni = dni;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email){
+        if (email == null || email.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El email no puede estar vacío");
+        }
         this.email = email;
     }
 
-    public void setNumeroCelular(String numeroCelular) {
+    public void setNumeroCelular(String numeroCelular){
+        if (numeroCelular == null || numeroCelular.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El número de celular no puede estar vacío");
+        }
         this.numeroCelular = numeroCelular;
     }
 
