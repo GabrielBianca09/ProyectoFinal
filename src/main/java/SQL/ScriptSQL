@@ -1,0 +1,349 @@
+-- ELIMINAR Y CREAR BASE DE DATOS -------------------------------------------
+
+DROP DATABASE IF EXISTS gestion_hotelera;
+
+CREATE DATABASE gestion_hotelera
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+USE gestion_hotelera;
+
+
+--  TABLA HOTELES --------------------------------------------------------
+
+
+CREATE TABLE hoteles (
+    id_hotel INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_hotel VARCHAR(100) NOT NULL,
+    direccion_hotel VARCHAR(200) NOT NULL,
+    numero_contacto_hotel VARCHAR(30) NOT NULL
+);
+
+
+-- TABLA EMPLEADOS ------------------------------------------------
+
+
+CREATE TABLE empleados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    dni VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(120),
+    numero_celular VARCHAR(30),
+
+    horas_trabajadas INT NOT NULL,
+    direccion VARCHAR(200),
+    salario_base DECIMAL(12,2) NOT NULL,
+
+    id_hotel INT NOT NULL,
+
+    FOREIGN KEY (id_hotel)
+        REFERENCES hoteles(id_hotel)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+-- TABLA PASAJEROS
+
+
+CREATE TABLE pasajeros (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    dni VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(120),
+    numero_celular VARCHAR(30),
+
+    direccion_origen VARCHAR(200)
+);
+
+-- TABLA ADMINISTRADORES ---------------------------------------------
+
+CREATE TABLE administradores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_admin INT NOT NULL UNIQUE,
+
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    dni VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(120),
+    numero_celular VARCHAR(30),
+
+    nombre_usuario VARCHAR(50) NOT NULL UNIQUE,
+    clave VARCHAR(255) NOT NULL
+);
+
+
+
+-- TABLA HABITACIONES -------------------------------------------------
+
+
+CREATE TABLE habitaciones (
+    numero_habitacion INT AUTO_INCREMENT PRIMARY KEY,
+
+    capacidad_ocupantes INT NOT NULL,
+
+    id_hotel INT NOT NULL,
+
+    estado_habitacion ENUM(
+        'DISPONIBLE',
+        'RESERVADA',
+        'EN_MANTENIMIENTO'
+    ) NOT NULL DEFAULT 'DISPONIBLE',
+
+    tipo_habitacion ENUM(
+        'suite',
+        'simple',
+        'presidencial'
+    ) NOT NULL,
+
+    FOREIGN KEY (id_hotel)
+        REFERENCES hoteles(id_hotel)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CHECK (capacidad_ocupantes > 0)
+);
+
+-- TABLA TRABAJOS DE EMPLEADOS ------------------------------------------------
+
+CREATE TABLE empleado_trabajos (
+    id_empleado INT NOT NULL,
+
+    tipo_trabajo ENUM(
+        'ARTISTA',
+        'BOTONES',
+        'COCINERO',
+        'CONSERJE',
+        'MOZO',
+        'RECEPCIONISTA'
+    ) NOT NULL,
+
+    PRIMARY KEY (id_empleado, tipo_trabajo),
+
+    FOREIGN KEY (id_empleado)
+        REFERENCES empleados(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+
+-- TABLA RESERVAS --------------------------------------------
+
+
+CREATE TABLE reservas (
+    id_reserva INT AUTO_INCREMENT PRIMARY KEY,
+
+    id_pasajero INT NOT NULL,
+
+    fecha DATE NOT NULL,
+
+    FOREIGN KEY (id_pasajero)
+        REFERENCES pasajeros(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+--  TABLA DETALLE RESERVA -----------------------------------------------
+
+
+CREATE TABLE detalle_reserva (
+    id_detalle INT AUTO_INCREMENT PRIMARY KEY,
+
+    id_reserva INT NOT NULL,
+
+    numero_habitacion INT NOT NULL,
+
+    precio DECIMAL(12,2) NOT NULL DEFAULT 0,
+
+    FOREIGN KEY (id_reserva)
+        REFERENCES reservas(id_reserva)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    FOREIGN KEY (numero_habitacion)
+        REFERENCES habitaciones(numero_habitacion)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CHECK (precio >= 0)
+);
+
+
+-- INSERTAR HOTEL -------------------------------------------
+
+INSERT INTO hoteles (
+    nombre_hotel,
+    direccion_hotel,
+    numero_contacto_hotel
+)
+VALUES (
+    'Hotel Costa Azul',
+    'Avenida Colon 1500, Mar del Plata',
+    '2234567890'
+);
+
+
+-- INSERTAR 10 EMPLEADOS ---------------------------------------
+
+
+INSERT INTO empleados (
+    nombre,
+    apellido,
+    dni,
+    email,
+    numero_celular,
+    horas_trabajadas,
+    direccion,
+    salario_base,
+    id_hotel
+)
+VALUES
+('Juan', 'Perez', '30111222', 'juan@gmail.com', '2231111111', 160, 'Mar del Plata', 450000, 1),
+('Maria', 'Gonzalez', '30222333', 'maria@gmail.com', '2232222222', 150, 'Batan', 480000, 1),
+('Carlos', 'Rodriguez', '30333444', 'carlos@gmail.com', '2233333333', 170, 'Mar del Plata', 500000, 1),
+('Lucia', 'Fernandez', '30444555', 'lucia@gmail.com', '2234444444', 160, 'Miramar', 460000, 1),
+('Pedro', 'Lopez', '30555666', 'pedro@gmail.com', '2235555555', 180, 'Mar del Plata', 520000, 1),
+('Ana', 'Martinez', '30666777', 'ana@gmail.com', '2236666666', 155, 'Mar del Plata', 470000, 1),
+('Diego', 'Sanchez', '30777888', 'diego@gmail.com', '2237777777', 165, 'Necochea', 490000, 1),
+('Sofia', 'Ramirez', '30888999', 'sofia@gmail.com', '2238888888', 160, 'Mar del Plata', 480000, 1),
+('Martin', 'Torres', '30999111', 'martin@gmail.com', '2239999999', 175, 'Mar del Plata', 510000, 1),
+('Laura', 'Diaz', '30123456', 'laura@gmail.com', '2231234567', 150, 'Santa Clara', 455000, 1);
+
+
+--  ASIGNAR TRABAJOS A LOS EMPLEADOS ------------------------------
+
+INSERT INTO empleado_trabajos (
+    id_empleado,
+    tipo_trabajo
+)
+VALUES
+(1, 'RECEPCIONISTA'),
+(2, 'CONSERJE'),
+(3, 'COCINERO'),
+(4, 'BOTONES'),
+(5, 'MOZO'),
+(6, 'RECEPCIONISTA'),
+(7, 'ARTISTA'),
+(8, 'MOZO'),
+(9, 'CONSERJE'),
+(10, 'COCINERO');
+
+
+--  INSERTAR 10 HABITACIONES ------------------------------
+
+INSERT INTO habitaciones (
+    capacidad_ocupantes,
+    id_hotel,
+    estado_habitacion,
+    tipo_habitacion
+)
+VALUES
+(1, 1, 'DISPONIBLE', 'simple'),
+(2, 1, 'DISPONIBLE', 'simple'),
+(2, 1, 'RESERVADA', 'suite'),
+(3, 1, 'DISPONIBLE', 'suite'),
+(4, 1, 'DISPONIBLE', 'presidencial'),
+(2, 1, 'EN_MANTENIMIENTO', 'suite'),
+(1, 1, 'DISPONIBLE', 'simple'),
+(3, 1, 'RESERVADA', 'suite'),
+(2, 1, 'DISPONIBLE', 'simple'),
+(4, 1, 'DISPONIBLE', 'presidencial');
+
+-- INSERTAR 10 PASAJEROS -----------------------------------
+
+INSERT INTO pasajeros (
+    nombre,
+    apellido,
+    dni,
+    email,
+    numero_celular,
+    direccion_origen
+)
+VALUES
+('Federico', 'Alonso', '40111222', 'fede@gmail.com', '2211111111', 'La Plata'),
+('Camila', 'Suarez', '40222333', 'camila@gmail.com', '2212222222', 'Buenos Aires'),
+('Nicolas', 'Castro', '40333444', 'nico@gmail.com', '2213333333', 'Tandil'),
+('Valentina', 'Mendez', '40444555', 'vale@gmail.com', '2214444444', 'Cordoba'),
+('Agustin', 'Romero', '40555666', 'agus@gmail.com', '2215555555', 'Rosario'),
+('Florencia', 'Herrera', '40666777', 'flor@gmail.com', '2216666666', 'Santa Fe'),
+('Mateo', 'Acosta', '40777888', 'mateo@gmail.com', '2217777777', 'Mendoza'),
+('Julieta', 'Vega', '40888999', 'juli@gmail.com', '2218888888', 'Neuquen'),
+('Tomas', 'Rojas', '40999111', 'tomas@gmail.com', '2219999999', 'Salta'),
+('Martina', 'Silva', '40123456', 'marti@gmail.com', '2211234567', 'Bahia Blanca');
+
+
+-- INSERTAR ADMINISTRADOR --------------------------------
+
+
+INSERT INTO administradores (
+    id_admin,
+    nombre,
+    apellido,
+    dni,
+    email,
+    numero_celular,
+    nombre_usuario,
+    clave
+)
+VALUES (
+    1,
+    'Admin',
+    'Principal',
+    '25000111',
+    'admin@hotel.com',
+    '2230000000',
+    'admin',
+    'CAMBIAR_POR_HASH_SEGURO'
+);
+
+
+
+-- INSERTAR 5 RESERVAS  ---------------------------------------
+
+INSERT INTO reservas (
+    id_pasajero,
+    fecha
+)
+VALUES
+(1, '2026-11-01'),
+(2, '2026-11-02'),
+(3, '2026-11-03'),
+(4, '2026-11-04'),
+(5, '2026-11-05');
+
+
+-- INSERTAR DETALLES DE RESERVA ------------------------------
+
+INSERT INTO detalle_reserva (
+    id_reserva,
+    numero_habitacion,
+    precio
+)
+VALUES
+(1, 1, 50000),
+(2, 2, 75000),
+(3, 3, 100000),
+(4, 4, 120000),
+(5, 5, 200000);
+
+-- CONSULTAS DE PRUEBA -------------------------------
+
+SELECT * FROM hoteles;
+
+SELECT * FROM empleados;
+
+SELECT * FROM empleado_trabajos;
+
+SELECT * FROM habitaciones;
+
+SELECT * FROM pasajeros;
+
+SELECT * FROM administradores;
+
+SELECT * FROM reservas;
+
+SELECT * FROM detalle_reserva;
