@@ -15,7 +15,6 @@ public class Administrador extends Persona {
     private int id_Admin;
     private String nombreUsuario;
     private String clave;
-    private GestorHotel gestorHotel;
 
     public Administrador(String nombre, String apellido, String dni, String email, String numeroCelular, String clave,String nombreUsuario) {
         super(nombre, apellido, dni, email, numeroCelular);
@@ -45,54 +44,6 @@ public class Administrador extends Persona {
         return id_Admin;
     }
 
-    private void altaEmpleado(Empleado e)throws Datos_Invalidos_Exeption, Datos_Duplicados_Exeption {
-        gestorHotel.agregarEmpleado(e);
-    }
 
-
-    public void altaHabitacion(Habitacion h)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
-        gestorHotel.agregarHabitacion(h);
-    }
-
-    public void altaCliente(Pasajero p)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
-        gestorHotel.agregarCliente(p);
-    }
-
-    public void altaReserva(Reserva r)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
-        gestorHotel.agregarReserva(r);
-    }
-
-
-    public void BajaEmpleado(Empleado e)throws Datos_Invalidos_Exeption, Dato_No_Encontrado_Exeption {
-        gestorHotel.eliminarEmpleado(e.getId());
-    }
-
-    public void BajaHabitacion(Habitacion h)throws Datos_Invalidos_Exeption, Dato_No_Encontrado_Exeption{
-        gestorHotel.eliminarHabitacion(h.getId());
-    }
-
-    public void bajaReserva(Reserva r) throws Datos_Invalidos_Exeption, Dato_No_Encontrado_Exeption{
-        gestorHotel.eliminarReserva(r.getId());
-    }
-
-    public void bajaCliente(Pasajero p)throws Dato_No_Encontrado_Exeption,Datos_Invalidos_Exeption{
-        gestorHotel.eliminarHuesped(p.getId());
-    }
-
-    public void actualizarHabitacion(Habitacion h,int id)throws Dato_No_Encontrado_Exeption,Datos_Invalidos_Exeption{
-        gestorHotel.actualizarHabitacion(id,h);
-    }
-
-    public void actualizarCliente(Pasajero p,int id)throws Dato_No_Encontrado_Exeption,Datos_Invalidos_Exeption{
-        gestorHotel.actualizarCliente(id,p);
-    }
-
-    public void actualizarEmpleado(Empleado e,int id)throws Dato_No_Encontrado_Exeption,Datos_Invalidos_Exeption{
-        gestorHotel.actualizarEmpleado(id,e);
-    }
-
-    public void actualizarReserva(Reserva r,int id)throws Dato_No_Encontrado_Exeption,Datos_Invalidos_Exeption{
-        gestorHotel.actualizarReserva(id,r);
-    }
 
 }

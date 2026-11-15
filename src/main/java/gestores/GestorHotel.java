@@ -3,6 +3,7 @@ package gestores;
 import Clases.Hotel.Hotel;
 import Clases.Hotel.Servicios.EmpleadoServicio;
 import Clases.Hotel.Servicios.Servicio;
+import Clases.Hotel.Servicios.Servicios_X_Cliente;
 import Clases.Persona.Empleados.Empleado;
 import Clases.Hotel.Habitacion;
 import Clases.Persona.Cliente.Pasajero;
@@ -19,6 +20,7 @@ public class GestorHotel {
     private Gestor<Empleado>empleadoGestor;
     private Gestor<Servicio>servicioGestor;
     private Gestor<Hotel>hoteles;
+    private Gestor<Servicios_X_Cliente>serviciosXClienteGestor;
 
     public GestorHotel() {
         this.empleadoGestor =new Gestor<Empleado>();
@@ -27,6 +29,7 @@ public class GestorHotel {
         this.reservaGestor =new Gestor<Reserva>();
         this.servicioGestor=new Gestor<Servicio>();
         this.hoteles=new Gestor<Hotel>();
+        this.serviciosXClienteGestor=new Gestor<Servicios_X_Cliente>();
     }
 
     public Gestor<Empleado> getEmpleadoGestor() {
@@ -264,5 +267,41 @@ public class GestorHotel {
             System.out.println(r.toString());
         }
     }
+
+    public void agregarServicioCliente(Servicios_X_Cliente s)throws Datos_Duplicados_Exeption{
+        serviciosXClienteGestor.agregar(s);
+    }
+
+    public Servicios_X_Cliente buscarServicioCliente(int id)throws Dato_No_Encontrado_Exeption{
+        for (Servicios_X_Cliente s:serviciosXClienteGestor.getLista()){
+            if(s.getId()==id){
+                return s;
+            }
+        }
+        throw new Dato_No_Encontrado_Exeption(id);
+    }
+
+    public void EliminarServicioCliente(int id)throws Dato_No_Encontrado_Exeption{
+        Servicios_X_Cliente buscar=serviciosXClienteGestor.buscar(id);
+        serviciosXClienteGestor.eliminar(id);
+    }
+
+
+    public void mostrarServiciosCliente(){
+        for (Servicios_X_Cliente s:serviciosXClienteGestor.getLista()){
+            System.out.println(s);
+        }
+    }
+
+    public void agregarConsumo(int idRegistro, int idServicio)
+            throws Dato_No_Encontrado_Exeption, Datos_Invalidos_Exeption {
+        if (idRegistro < 0 || idServicio < 0) {
+            throw new Datos_Invalidos_Exeption("los id no pueden ser negativos");
+        }
+        Servicios_X_Cliente registro = serviciosXClienteGestor.buscar(idRegistro);
+        Servicio servicio = servicioGestor.buscar(idServicio);
+        registro.agregarConsumo(servicio);
+    }
+
 
 }

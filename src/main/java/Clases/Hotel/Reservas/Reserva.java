@@ -28,6 +28,11 @@ public class Reserva implements Identificable, CalcularCosto {
         this.pasajero = pasajero;
     }
 
+    public Reserva(Date fecha,List<DetalleReserva> habitacionesXreserva, Pasajero pasajero) {
+        this.habitacionesXreserva = habitacionesXreserva;
+        this.pasajero = pasajero;
+        this.fecha=fecha;
+    }
 
     public Pasajero getPasajero() {
         return pasajero;

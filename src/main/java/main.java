@@ -4,6 +4,7 @@ import Clases.Hotel.Servicios.EmpleadoServicio;
 import Clases.Hotel.Servicios.MenuServicio;
 import Clases.Hotel.Servicios.Servicio;
 import Clases.Hotel.MenuHabitacion;
+import Clases.Persona.Admin.MenuAdministrador;
 import Clases.Persona.Empleados.Empleado;
 import Clases.Persona.Empleados.MenuEmpleado;
 import Clases.Persona.Empleados.Mozos;
@@ -16,15 +17,10 @@ import gestores.GestorHotel;
 public class main {
     public static void main(String[] args) {
         GestorHotel gestorHotel=new GestorHotel();
+
         try {
-            MenuHotel m=new MenuHotel(gestorHotel);
-            m.menuHotel();
-            MenuHabitacion menuHabitacion=new MenuHabitacion(gestorHotel);
-            menuHabitacion.operacionesConHabitaciones();
-            MenuEmpleado menuEmpleado=new MenuEmpleado(gestorHotel);
-            menuEmpleado.OperacionesEmpleados();
-            MenuServicio menuServicio=new MenuServicio(gestorHotel);
-            menuServicio.operacionesConServicios();
+            MenuAdministrador menuAdministrador=new MenuAdministrador(gestorHotel);
+            menuAdministrador.menuAdministrador();
         }catch (Datos_Invalidos_Exeption e){
             System.out.println("datos_invalidos");
         }
