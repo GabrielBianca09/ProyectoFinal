@@ -8,6 +8,7 @@ import Clases.Persona.Persona;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
+import Exepciones.Error_De_Acceso_A_Datos_Exeption;
 import gestores.GestorHotel;
 
 public class Administrador extends Persona {
@@ -50,7 +51,7 @@ public class Administrador extends Persona {
     }
 
 
-    public void altaHabitacion(Habitacion h)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
+    public void altaHabitacion(Habitacion h) throws Datos_Invalidos_Exeption, Datos_Duplicados_Exeption, Error_De_Acceso_A_Datos_Exeption {
         gestorHotel.agregarHabitacion(h);
     }
 

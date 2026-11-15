@@ -101,7 +101,7 @@ public class MenuEmpleado {
                                     empleado = new Mozos(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
                                 case 6:
-                                    empleado = new Botones(nombre, apellido, dni, email, celular, horas, direccion, salario);
+                                    empleado = new Cadete(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
                             }
 

@@ -7,10 +7,8 @@ import Clases.Persona.Empleados.Empleado;
 import Clases.Hotel.Habitacion;
 import Clases.Persona.Cliente.Pasajero;
 import Clases.Hotel.Reservas.Reserva;
-import Exepciones.Dato_No_Encontrado_Exeption;
-import Exepciones.Datos_Duplicados_Exeption;
-import Exepciones.Datos_Invalidos_Exeption;
-import Exepciones.Habitacion_No_Disponible_Exeption;
+import Exepciones.*;
+import SQL.HabitacionDao;
 
 public class GestorHotel {
     private Gestor<Reserva>reservaGestor;
@@ -19,6 +17,7 @@ public class GestorHotel {
     private Gestor<Empleado>empleadoGestor;
     private Gestor<Servicio>servicioGestor;
     private Gestor<Hotel>hoteles;
+    HabitacionDao habitacionDao;
 
     public GestorHotel() {
         this.empleadoGestor =new Gestor<Empleado>();
@@ -69,8 +68,8 @@ public class GestorHotel {
         this.servicioGestor = servicioGestor;
     }
 
-    public void agregarHabitacion(Habitacion h)throws Datos_Duplicados_Exeption {
-        habitacionGestor.agregar(h);
+    public void agregarHabitacion(Habitacion h) throws Datos_Duplicados_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        habitacionDao.agregar(h);
     }
 
     public void agregarCliente(Pasajero p)throws Datos_Duplicados_Exeption, Datos_Invalidos_Exeption {

@@ -31,16 +31,6 @@ public class Empleado extends Persona {
         }
     }
 
-    public boolean puedeHacerEseTrabajo(Tipo_de_Trabajo tipo){
-        return trabajos.contains(tipo);
-    }
-    public List<Tipo_de_Trabajo> getTrabajos() {
-        return trabajos;
-    }
-
-    public void setTrabajos(List<Tipo_de_Trabajo> trabajos) {
-        this.trabajos = trabajos;
-    }
 
     public int getHorasTrabajadas() {
         return horasTrabajadas;

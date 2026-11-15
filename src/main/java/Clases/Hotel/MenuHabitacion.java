@@ -5,6 +5,7 @@ import Enums.Tipo_Habitacion;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
+import Exepciones.Error_De_Acceso_A_Datos_Exeption;
 import gestores.GestorHotel;
 
 import java.util.InputMismatchException;
@@ -75,6 +76,8 @@ public class MenuHabitacion {
                         } catch (InputMismatchException e) {
                             System.out.println("Debe ingresar un valor del tipo correcto.");
                             leer.nextLine();
+                        } catch (Error_De_Acceso_A_Datos_Exeption e) {
+                            throw new RuntimeException(e);
                         }
                         break;
 
