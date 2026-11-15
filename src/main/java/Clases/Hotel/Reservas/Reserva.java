@@ -14,42 +14,20 @@ import java.util.Date;
 import java.util.List;
 
 public class Reserva implements Identificable, CalcularCosto {
-    private static final double simple=750;
-    private static final double suite=1500;
-    private static final double presidencial=3000;
-    private static int gencon=0;
+
+    private int gencon=0;
     private int idreserva;
     private Pasajero pasajero;
-    private List<Habitacion>habitacionesXreserva;
+    private List<DetalleReserva>habitacionesXreserva;
     private Date fecha;
-    private double valorTotal;
-    private int cantidadDias;
 
-
-    public Reserva(Date fecha,int idreserva, Pasajero pasajero, int cantidadDias) {
+    public Reserva(Date fecha,Pasajero pasajero) {
         this.fecha = fecha;
-        this.habitacionesXreserva =new ArrayList<Habitacion>();
+        this.habitacionesXreserva =new ArrayList<DetalleReserva>();
         this.idreserva =gencon++;
         this.pasajero = pasajero;
-        this.valorTotal =0;
-        this.cantidadDias=cantidadDias;
     }
 
-    public Reserva(int cantidadDias, Date fecha, List<Habitacion> habitacionesXreserva, Pasajero pasajero, double valorTotal) {
-        this.cantidadDias = cantidadDias;
-        this.fecha = fecha;
-        this.habitacionesXreserva = habitacionesXreserva;
-        this.pasajero = pasajero;
-        this.valorTotal = valorTotal;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
 
     public Pasajero getPasajero() {
         return pasajero;
@@ -59,11 +37,11 @@ public class Reserva implements Identificable, CalcularCosto {
         this.pasajero = pasajero;
     }
 
-    public List<Habitacion> getHabitacionesXreserva() {
+    public List<DetalleReserva> getHabitacionesXreserva() {
         return habitacionesXreserva;
     }
 
-    public void setHabitacionesXreserva(List<Habitacion> habitacionesXreserva) {
+    public void setHabitacionesXreserva(List<DetalleReserva> habitacionesXreserva) {
         this.habitacionesXreserva = habitacionesXreserva;
     }
 
@@ -79,27 +57,22 @@ public class Reserva implements Identificable, CalcularCosto {
         return idreserva;
     }
 
-    public int getCantidadDias() {
-        return cantidadDias;
-    }
-
-    public void setCantidadDias(int cantidadDias) {
-        this.cantidadDias = cantidadDias;
-    }
 
 
-    public boolean agregarHabitacion(Habitacion h)throws Habitacion_No_Disponible_Exeption {
-        if(h!=null && h.getEstadoHabitacion()==EstadoHabitacion.DISPONIBLE && !habitacionesXreserva.contains(h)){
-            h.reservar();
-            habitacionesXreserva.add(h);
-            return true;
+
+    public void agregarHabitacion(Habitacion h, int dias)throws Dato_No_Encontrado_Exeption,Habitacion_No_Disponible_Exeption{
+        if (h == null || dias <= 0
+                || h.getEstadoHabitacion() != EstadoHabitacion.DISPONIBLE
+                || existe(h.getId())) {
+            throw new Habitacion_No_Disponible_Exeption(h.getEstadoHabitacion(),h.getId());
         }
-        return false;
+        h.reservar();
+        habitacionesXreserva.add(new DetalleReserva(dias,h));
     }
 
-    public void finalizarReserva(Habitacion habitacion)throws Dato_No_Encontrado_Exeption{
+    public void finalizarReserva(int idhabitacion)throws Dato_No_Encontrado_Exeption{
         int pos=-1;
-        pos=buscarHabitacion(habitacion.getId());
+        pos=buscarHabitacion(idhabitacion);
         if(pos!=-1){
             habitacionesXreserva.get(pos).devolver();
         }
@@ -115,46 +88,25 @@ public class Reserva implements Identificable, CalcularCosto {
     }
 
 
-    public boolean existe(int numeroHabitacion)throws Dato_No_Encontrado_Exeption{
-        for (Habitacion habitacion:habitacionesXreserva){
-            if(habitacion.getNumeroHabitacion()==numeroHabitacion){
+    public boolean existe(int numeroDetalle)throws Dato_No_Encontrado_Exeption{
+        for (DetalleReserva detalleReserva:habitacionesXreserva){
+            if(detalleReserva.getIdDetalleReserva()==numeroDetalle){
                 return true;
             }
         }
-        throw new Dato_No_Encontrado_Exeption(numeroHabitacion);
+        throw new Dato_No_Encontrado_Exeption(numeroDetalle);
     }
+
 
     @Override
     public double calcularTotal() {
-        double total=0.0;
-        for(Habitacion h:habitacionesXreserva){
-            total+=calcularTotal1habitacion(h);
+        double total=0;
+        for (DetalleReserva d:habitacionesXreserva){
+           total+=d.calcularTotal1habitacion();
         }
-        this.valorTotal=total;
         return total;
     }
 
-    public double calcularTotal1habitacion(Habitacion h){
-        if(Tipo_Habitacion.presidencial==h.getTipoHabitacion()){
-            return cantidadDias*presidencial;
-        }else if(Tipo_Habitacion.simple==h.getTipoHabitacion()
-        ){
-            return cantidadDias*simple;
-        }else {
-            return cantidadDias*suite;
-        }
-    }
-
-
-
-    public boolean EstaEnLaListaDeHabitaciones(int numeroHabitacion)throws Dato_No_Encontrado_Exeption {
-        for(Habitacion h:habitacionesXreserva){
-            if(h.getNumeroHabitacion()==numeroHabitacion){
-                return true;
-            }
-        }
-        throw new Dato_No_Encontrado_Exeption(numeroHabitacion);
-    }
 
 
     @Override
@@ -168,24 +120,25 @@ public class Reserva implements Identificable, CalcularCosto {
         this.fecha =r.getFecha();
         this.habitacionesXreserva=r.getHabitacionesXreserva();
         this.pasajero =r.getPasajero();
-        this.valorTotal =r.getValorTotal();
-        this.cantidadDias=r.getCantidadDias();
+
     }
 
     public void setIdreserva(int idreserva) {
         this.idreserva = idreserva;
     }
 
+    public void setHabitacionesXreserva() {
+        this.habitacionesXreserva = habitacionesXreserva;
+    }
 
     @Override
     public String toString() {
         return "Reserva{" +
-                "cantidadDias=" + cantidadDias +
+                "fecha=" + fecha +
+                ", gencon=" + gencon +
                 ", idreserva=" + idreserva +
                 ", pasajero=" + pasajero +
-                ", habitacionesXreserva=" + habitacionesXreserva +
-                ", fecha=" + fecha +
-                ", valorTotal=" + valorTotal +
+                ", habitacionesXreserva=" + habitacionesXreserva + "total de la reserva"+calcularTotal()+
                 '}';
     }
 }

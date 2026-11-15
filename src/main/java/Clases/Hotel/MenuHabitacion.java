@@ -1,7 +1,5 @@
-package Clases;
+package Clases.Hotel;
 
-import Clases.Hotel.Habitacion;
-import Clases.Hotel.Hotel;
 import Enums.EstadoHabitacion;
 import Enums.Tipo_Habitacion;
 import Exepciones.Dato_No_Encontrado_Exeption;

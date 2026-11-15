@@ -84,11 +84,7 @@ public class GestorHotel {
     public void agregarReserva(Reserva r)throws Datos_Duplicados_Exeption{
         reservaGestor.agregar(r);
     }
-    public void agregarHabitacionReserva(int idReserva,int idhabitacion)throws Dato_No_Encontrado_Exeption,Habitacion_No_Disponible_Exeption{
-        Reserva r=reservaGestor.buscar(idReserva);
-        Habitacion h=habitacionGestor.buscar(idhabitacion);
-        r.agregarHabitacion(h);
-    }
+
 
 
     public Habitacion buscarHabitacion(int id)throws Dato_No_Encontrado_Exeption {
@@ -247,6 +243,8 @@ public class GestorHotel {
         throw new Dato_No_Encontrado_Exeption(id);
    }
 
+
+
     public Gestor<Hotel> getHoteles() {
         return hoteles;
     }
@@ -258,6 +256,12 @@ public class GestorHotel {
     public void mostrarEmpleados(){
         for (Empleado e:getEmpleadoGestor().getLista()){
             System.out.println(e.toString());
+        }
+    }
+
+    public void mostrarReservas(){
+        for (Reserva r:getReservaGestor().getLista()){
+            System.out.println(r.toString());
         }
     }
 

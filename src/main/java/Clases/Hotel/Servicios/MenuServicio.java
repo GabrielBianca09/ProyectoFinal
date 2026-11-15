@@ -1,9 +1,6 @@
-package Clases;
+package Clases.Hotel.Servicios;
 
-import Clases.Hotel.Servicios.EmpleadoServicio;
-import Clases.Hotel.Servicios.Servicio;
 import Clases.Persona.Empleados.Empleado;
-import Enums.Tipo_Habitacion;
 import Enums.Tipo_de_Trabajo;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
@@ -153,6 +150,7 @@ public class MenuServicio {
                             leer.nextLine();
 
                             Servicio s = gestorHotel.buscarServicio(idServicio);
+                            gestorHotel.mostrarEmpleados();
 
                             System.out.println("Ingrese el ID del empleado:");
                             int idEmpleado = leer.nextInt();

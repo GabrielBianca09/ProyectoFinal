@@ -78,7 +78,7 @@ public class Empleado extends Persona {
 
     @Override
     public String toString() {
-        return "Empleados.Empleado{" + super.toString() +
+        return "Empleados.Empleado{" +super.toString() +
                 "horasTrabajadas=" + horasTrabajadas +
                 ", direccion='" + direccion + '\'' +
                 ", salarioPorHora=" + salarioBase +

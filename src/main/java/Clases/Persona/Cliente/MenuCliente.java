@@ -1,6 +1,5 @@
-package Clases;
+package Clases.Persona.Cliente;
 
-import Clases.Persona.Cliente.Pasajero;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;

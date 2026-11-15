@@ -109,14 +109,13 @@ public abstract class Persona implements Identificable {
 
     @Override
     public String toString() {
-        return " " +
-                "nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", dni=" + dni +
+        return "Persona{" +
+                "apellido='" + apellido + '\'' +
+                ", id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", dni='" + dni + '\'' +
                 ", email='" + email + '\'' +
-                ", numeroCelular=" + numeroCelular +
+                ", numeroCelular='" + numeroCelular + '\'' +
                 '}';
     }
-
-
 }

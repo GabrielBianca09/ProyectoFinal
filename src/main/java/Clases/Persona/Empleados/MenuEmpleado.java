@@ -1,7 +1,6 @@
 
-package Clases;
+package Clases.Persona.Empleados;
 
-import Clases.Persona.Empleados.*;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
@@ -21,7 +20,7 @@ public class MenuEmpleado {
     }
 
 
-    public void OperacionesConPasajeros() {
+    public void OperacionesEmpleados() {
 
         int op = -1;
 
@@ -71,6 +70,9 @@ public class MenuEmpleado {
                             System.out.println("Ingrese el celular:");
                             String celular = leer.nextLine();
 
+                            System.out.println("Ingrese dirección:");
+                            String direccion = leer.nextLine();
+
                             System.out.println("Ingrese el salario base:");
                             double salario = leer.nextDouble();
                             leer.nextLine();
@@ -79,8 +81,6 @@ public class MenuEmpleado {
                             int horas = leer.nextInt();
                             leer.nextLine();
 
-                            System.out.println("Ingrese dirección:");
-                            String direccion = leer.nextLine();
 
                             Empleado empleado = null;
 
