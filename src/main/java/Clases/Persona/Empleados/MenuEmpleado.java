@@ -1,7 +1,6 @@
 
 package Clases.Persona.Empleados;
 
-import Clases.Persona.Empleados.Recepcionista.Recepcionista;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
@@ -31,6 +30,7 @@ public class MenuEmpleado {
             System.out.println("2. Listar Empleado");
             System.out.println("4. Eliminar Empleado");
             System.out.println("5. Actualizar Empleado");
+            System.out.println("6 calcular sueldo");
             System.out.println("0. Salir");
 
             try {
@@ -45,9 +45,8 @@ public class MenuEmpleado {
                             System.out.println("1. Artista");
                             System.out.println("2. Cocinero");
                             System.out.println("3. Conserje");
-                            System.out.println("4. Recepcionista");
                             System.out.println("5. Mozos");
-                            System.out.println("6. Botones");
+                            System.out.println("6. cadete");
 
                             int opcion = leer.nextInt();
                             leer.nextLine();
@@ -86,23 +85,18 @@ public class MenuEmpleado {
                             Empleado empleado = null;
 
                             switch (opcion) {
-                                case 1:
-                                    empleado = new Artista(nombre, apellido, dni, email, celular, horas, direccion, salario);
-                                    break;
                                 case 2:
                                     empleado = new Cocinero(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
                                 case 3:
                                     empleado = new Conserje(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
-                                case 4:
-                                    empleado = new Recepcionista(nombre, apellido, dni, email, celular, horas, direccion, salario);
-                                    break;
+
                                 case 5:
                                     empleado = new Mozos(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
                                 case 6:
-                                    empleado = new Botones(nombre, apellido, dni, email, celular, horas, direccion, salario);
+                                    empleado = new cadete(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
                             }
 

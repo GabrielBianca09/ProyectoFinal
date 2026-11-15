@@ -1,6 +1,4 @@
 import Clases.Persona.Admin.MenuAdministrador;
-import Clases.Persona.Cliente.Pasajero;
-import Clases.Persona.Empleados.Recepcionista.Recepcionista;
 import Exepciones.Datos_Invalidos_Exeption;
 import gestores.GestorHotel;
 
