@@ -3,11 +3,10 @@ package Clases.Persona.Admin;
 import Clases.Hotel.MenuHabitacion;
 import Clases.Hotel.MenuHotel;
 import Clases.Hotel.Reservas.MenuReserva;
-import Clases.Hotel.Servicios.MenuServicio;
-import Clases.Hotel.Servicios.MenuServiciosXCliente;
 import Clases.Persona.Cliente.MenuCliente;
 import Clases.Persona.Empleados.MenuEmpleado;
-import gestores.Gestor;
+import Exepciones.Dato_No_Encontrado_Exeption;
+import Exepciones.Datos_Invalidos_Exeption;
 import gestores.GestorHotel;
 
 import java.util.InputMismatchException;
@@ -16,10 +15,28 @@ import java.util.Scanner;
 public class MenuAdministrador {
     private Scanner sc;
     private GestorHotel gestorHotel;
+    private Administrador administrador;
 
     public MenuAdministrador(GestorHotel gestorHotel) {
         this.gestorHotel = gestorHotel;
         this.sc = new Scanner(System.in);
+    }
+
+    public void login()throws Dato_No_Encontrado_Exeption {
+        Administrador admin = null;
+        while (admin == null) {
+            System.out.println("Usuario:");
+            String usuario = sc.nextLine();
+            System.out.println("Clave:");
+            String clave = sc.nextLine();
+
+            try {
+                admin = gestorHotel.ValidacionAdministrador(usuario,clave);
+            } catch (Datos_Invalidos_Exeption e) {
+                System.out.println(e.getMessage());
+            }
+        }
+       menuAdministrador();
     }
 
     public void menuAdministrador(){
@@ -29,10 +46,8 @@ public class MenuAdministrador {
             System.out.println("1 hoteles");
             System.out.println("2 clientes");
             System.out.println("3 habitaciones");
-            System.out.println("4 Servicios");
             System.out.println("5 reservas");
             System.out.println("6 empleados");
-            System.out.println("7 servicios por cliente");
 
             try {
                 op = sc.nextInt();
@@ -52,11 +67,6 @@ public class MenuAdministrador {
                         menuHabitacion.operacionesConHabitaciones();
                         break;
 
-                        case 4:
-                            MenuServicio menuServicio=new MenuServicio(gestorHotel);
-                            menuServicio.operacionesConServicios();
-                            break;
-
                     case 5:
                         MenuReserva menuReserva=new MenuReserva(gestorHotel);
                         menuReserva.menuReserva();
@@ -67,10 +77,6 @@ public class MenuAdministrador {
                         menuEmpleado.OperacionesEmpleados();
                         break;
 
-                    case 7:
-                        MenuServiciosXCliente menuServiciosXCliente=new MenuServiciosXCliente(gestorHotel);
-                        menuServiciosXCliente.menuConsumos();
-                        break;
                 }
             }catch (InputMismatchException e){
                 System.out.println("ingrese que desea administrar");

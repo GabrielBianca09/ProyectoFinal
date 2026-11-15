@@ -8,9 +8,10 @@ import Clases.Persona.Persona;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
+import Interfaces.Identificable;
 import gestores.GestorHotel;
 
-public class Administrador extends Persona {
+public class Administrador extends Persona implements Identificable {
     private static int cont=0;
     private int id_Admin;
     private String nombreUsuario;
@@ -44,6 +45,19 @@ public class Administrador extends Persona {
         return id_Admin;
     }
 
+    @Override
+    public int getId() {
+        return id_Admin;
+    }
 
+    @Override
+    public void actualizarDatos(Identificable actualizar) {
+        Administrador admin = (Administrador) actualizar;
+        this.nombreUsuario = admin.getNombreUsuario();
+        this.clave = admin.getClave();
+    }
 
+    public boolean validarClave(String claveingresada,String nombreUsuario) {
+        return this.nombreUsuario.equals(nombreUsuario) && this.clave.equals(claveingresada);
+    }
 }

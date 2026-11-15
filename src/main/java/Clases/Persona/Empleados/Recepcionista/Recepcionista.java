@@ -1,14 +1,13 @@
-package Clases.Persona.Empleados;
+package Clases.Persona.Empleados.Recepcionista;
 
 import Clases.Hotel.Habitacion;
 import Clases.Hotel.Reservas.Reserva;
 import Clases.Persona.Cliente.Pasajero;
-import Clases.Persona.Persona;
+import Clases.Persona.Empleados.Empleado;
 import Enums.Tipo_de_Trabajo;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Habitacion_No_Disponible_Exeption;
-import gestores.Gestor;
 import gestores.GestorHotel;
 
 public class Recepcionista extends Empleado {

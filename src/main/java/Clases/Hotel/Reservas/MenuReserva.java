@@ -8,6 +8,7 @@ import Exepciones.Datos_Invalidos_Exeption;
 import Exepciones.Habitacion_No_Disponible_Exeption;
 import gestores.GestorHotel;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -40,7 +41,8 @@ public class MenuReserva {
                         try {
                             opcionhabitacion=leer.nextInt();
                             Pasajero pasajero=pedirPasajero();
-                            Reserva r=new Reserva(new Date(),pasajero);
+                            LocalDateTime ahora = LocalDateTime.now();
+                            Reserva r=new Reserva(ahora,pasajero);
                             if (opcionhabitacion<0) {
                                 throw new Datos_Invalidos_Exeption("la opcion debe ser mayor o igual a 0");
                             }
@@ -48,15 +50,21 @@ public class MenuReserva {
                             do {
                                 System.out.println("desea agregar una habitacion cualquier int para segui 0 para salir");
                                 opcionAgregar=leer.nextInt();
-                                pedirDetalle(r);
                             }while (opcionAgregar!=0);
+                            int opciondias=-1;
+                            do {
+                                System.out.println("ingrese la cantidad de dias");
+                                opciondias=leer.nextInt();
+                            }while (opciondias <=0);
+                            Habitacion h=gestorHotel.buscarHabitacion(opcionAgregar);
+                            r.agregarHabitacion(h,opciondias);
                             if (r.getHabitacionesXreserva().isEmpty()){
                                 System.out.println("tiene que haber al menos 1 habitacion");
                             }
                             double total=r.calcularTotal();
                             gestorHotel.agregarReserva(r);
                             System.out.println("el total de la reserva es : "+ total);
-                        }catch (Datos_Duplicados_Exeption e){
+                        }catch (Datos_Duplicados_Exeption | Dato_No_Encontrado_Exeption|Habitacion_No_Disponible_Exeption e){
                             System.out.println(e.getMessage());
                         }
                             catch (Datos_Invalidos_Exeption e){
@@ -194,44 +202,9 @@ public class MenuReserva {
         return null;
     }
 
-    private void pedirDetalle(Reserva reserva) {
-        try {
-            gestorHotel.mostrarHabitaciones();
-            System.out.println("Ingrese el ID de la habitacion:");
-            int id = leer.nextInt();
-            leer.nextLine();
 
-            if (id <= 0) {
-                throw new Datos_Invalidos_Exeption("El ID debe ser mayor a 0");
-            }
-
-            Habitacion h = gestorHotel.buscarHabitacion(id);
-
-            System.out.println("Ingrese la cantidad de dias:");
-            int dias = leer.nextInt();
-            leer.nextLine();
-
-            if (dias <= 0) {
-                throw new Datos_Invalidos_Exeption("La cantidad de dias debe ser mayor a 0");
-            }
-
-            reserva.agregarHabitacion(h,dias);
-
-        } catch (Dato_No_Encontrado_Exeption e) {
-            System.out.println("La habitacion no existe");
-
-        } catch (Habitacion_No_Disponible_Exeption e) {
-            System.out.println("La habitacion no esta disponible");
-
-        } catch (Datos_Invalidos_Exeption e) {
-            System.out.println(e.getMessage());
-
-        } catch (InputMismatchException e) {
-            System.out.println("Debe ingresar un valor del tipo correcto.");
-            leer.nextLine();
-        }
     }
-}
+
 
 
 

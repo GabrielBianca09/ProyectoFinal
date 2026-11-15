@@ -1,9 +1,7 @@
 package gestores;
 
 import Clases.Hotel.Hotel;
-import Clases.Hotel.Servicios.EmpleadoServicio;
-import Clases.Hotel.Servicios.Servicio;
-import Clases.Hotel.Servicios.Servicios_X_Cliente;
+import Clases.Persona.Admin.Administrador;
 import Clases.Persona.Empleados.Empleado;
 import Clases.Hotel.Habitacion;
 import Clases.Persona.Cliente.Pasajero;
@@ -11,25 +9,22 @@ import Clases.Hotel.Reservas.Reserva;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
-import Exepciones.Habitacion_No_Disponible_Exeption;
 
 public class GestorHotel {
     private Gestor<Reserva>reservaGestor;
     private Gestor<Habitacion>habitacionGestor;
     private Gestor<Pasajero>huespedes;
     private Gestor<Empleado>empleadoGestor;
-    private Gestor<Servicio>servicioGestor;
     private Gestor<Hotel>hoteles;
-    private Gestor<Servicios_X_Cliente>serviciosXClienteGestor;
+    private Gestor<Administrador>administradorGestor;
 
     public GestorHotel() {
         this.empleadoGestor =new Gestor<Empleado>();
         this.habitacionGestor =new Gestor<Habitacion>();
         this.huespedes =new Gestor<Pasajero>();
         this.reservaGestor =new Gestor<Reserva>();
-        this.servicioGestor=new Gestor<Servicio>();
         this.hoteles=new Gestor<Hotel>();
-        this.serviciosXClienteGestor=new Gestor<Servicios_X_Cliente>();
+        this.administradorGestor=new Gestor<Administrador>();
     }
 
     public Gestor<Empleado> getEmpleadoGestor() {
@@ -64,13 +59,7 @@ public class GestorHotel {
         this.reservaGestor = reservaGestor;
     }
 
-    public Gestor<Servicio> getServicioGestor() {
-        return servicioGestor;
-    }
 
-    public void setServicioGestor(Gestor<Servicio> servicioGestor) {
-        this.servicioGestor = servicioGestor;
-    }
 
     public void agregarHabitacion(Habitacion h)throws Datos_Duplicados_Exeption {
         habitacionGestor.agregar(h);
@@ -146,19 +135,6 @@ public class GestorHotel {
         hoteles.actualizar(h,id);
     }
 
-    public void agregarServicio(Servicio s)throws Datos_Invalidos_Exeption,Datos_Duplicados_Exeption{
-        servicioGestor.agregar(s);
-    }
-    public void eliminarServicio(int id)throws Dato_No_Encontrado_Exeption{
-        servicioGestor.eliminar(id);
-    }
-    public Servicio buscarServicio(int id)throws Dato_No_Encontrado_Exeption {
-       return servicioGestor.buscar(id);
-    }
-
-    public void actualizarServicio(int id,Servicio s)throws Dato_No_Encontrado_Exeption{
-        servicioGestor.actualizar(s,id);
-    }
 
         public void agregarHotel(Hotel h)throws Datos_Duplicados_Exeption{
         hoteles.agregar(h);
@@ -199,28 +175,13 @@ public class GestorHotel {
         }
    }
 
-   public void mostrarServicios(){
-        for (Servicio s:servicioGestor.getLista()){
-            System.out.println(s.toString());
-        }
-   }
 
    public void mostrarhuespedes(){
         for (Pasajero p:huespedes.getLista()){
             System.out.println(p.toString());
         }
    }
-   public double calcularSueldo(Empleado e){
-        double total=e.getSalarioBase();
-        for (Servicio s:servicioGestor.getLista()){
-            for (EmpleadoServicio es:s.getEmpleadosxServicio()){
-                if(es.getEmpleado().getId()==e.getId()){
-                    total+=es.getSalario_adicional();
-                }
-            }
-        }
-        return total;
-   }
+
 
    public void listarHoteles(){
         for (Hotel h:hoteles.getLista()){
@@ -268,39 +229,38 @@ public class GestorHotel {
         }
     }
 
-    public void agregarServicioCliente(Servicios_X_Cliente s)throws Datos_Duplicados_Exeption{
-        serviciosXClienteGestor.agregar(s);
+
+
+    public void agregarAdministardor(Administrador a)throws Datos_Duplicados_Exeption{
+        administradorGestor.agregar(a);
     }
 
-    public Servicios_X_Cliente buscarServicioCliente(int id)throws Dato_No_Encontrado_Exeption{
-        for (Servicios_X_Cliente s:serviciosXClienteGestor.getLista()){
-            if(s.getId()==id){
-                return s;
+    public Administrador buscarAdministrador(int idadmin)throws Dato_No_Encontrado_Exeption{
+        for (Administrador a:administradorGestor.getLista()){
+            if(a.getId()==idadmin){
+                return a;
             }
         }
-        throw new Dato_No_Encontrado_Exeption(id);
+        return null;
     }
 
-    public void EliminarServicioCliente(int id)throws Dato_No_Encontrado_Exeption{
-        Servicios_X_Cliente buscar=serviciosXClienteGestor.buscar(id);
-        serviciosXClienteGestor.eliminar(id);
+    public void eliminarAdministrador(int idadmin)throws Dato_No_Encontrado_Exeption{
+        Administrador a =buscarAdministrador(idadmin);
+        administradorGestor.eliminar(a.getId());
     }
-
-
-    public void mostrarServiciosCliente(){
-        for (Servicios_X_Cliente s:serviciosXClienteGestor.getLista()){
-            System.out.println(s);
+    public void mostrarAdministrador(){
+        for (Administrador a:administradorGestor.getLista()){
+            System.out.println(a);
         }
     }
 
-    public void agregarConsumo(int idRegistro, int idServicio)
-            throws Dato_No_Encontrado_Exeption, Datos_Invalidos_Exeption {
-        if (idRegistro < 0 || idServicio < 0) {
-            throw new Datos_Invalidos_Exeption("los id no pueden ser negativos");
+    public Administrador ValidacionAdministrador(String nombre,String clave)throws Dato_No_Encontrado_Exeption{
+        for (Administrador a:administradorGestor.getLista()){
+            if(a.validarClave(clave,nombre)){
+                return a;
+            }
         }
-        Servicios_X_Cliente registro = serviciosXClienteGestor.buscar(idRegistro);
-        Servicio servicio = servicioGestor.buscar(idServicio);
-        registro.agregarConsumo(servicio);
+        throw new Datos_Invalidos_Exeption("clave o usuario incorrecto");
     }
 
 

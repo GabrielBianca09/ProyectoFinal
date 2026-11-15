@@ -9,29 +9,42 @@ import Exepciones.Habitacion_No_Disponible_Exeption;
 import Interfaces.CalcularCosto;
 import Interfaces.Identificable;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Reserva implements Identificable, CalcularCosto {
-
+    private static final double simple=750;
+    private static final double suite=1500;
+    private static final double presidencial=3000;
     private int gencon=0;
     private int idreserva;
     private Pasajero pasajero;
-    private List<DetalleReserva>habitacionesXreserva;
-    private Date fecha;
-
-    public Reserva(Date fecha,Pasajero pasajero) {
+    private List<Habitacion>habitacionesXreserva;
+    private LocalDateTime fecha;
+    private int cantidadDias;
+    public Reserva(LocalDateTime fecha,Pasajero pasajero) {
         this.fecha = fecha;
-        this.habitacionesXreserva =new ArrayList<DetalleReserva>();
+        this.habitacionesXreserva =new ArrayList<Habitacion>();
         this.idreserva =gencon++;
         this.pasajero = pasajero;
+        this.cantidadDias=cantidadDias;
     }
 
-    public Reserva(Date fecha,List<DetalleReserva> habitacionesXreserva, Pasajero pasajero) {
+    public Reserva(LocalDateTime fecha,List<Habitacion> habitacionesXreserva, Pasajero pasajero) {
         this.habitacionesXreserva = habitacionesXreserva;
         this.pasajero = pasajero;
         this.fecha=fecha;
+        this.cantidadDias=cantidadDias;
+    }
+
+    public int getCantidadDias() {
+        return cantidadDias;
+    }
+
+    public void setCantidadDias(int cantidadDias) {
+        this.cantidadDias = cantidadDias;
     }
 
     public Pasajero getPasajero() {
@@ -42,19 +55,20 @@ public class Reserva implements Identificable, CalcularCosto {
         this.pasajero = pasajero;
     }
 
-    public List<DetalleReserva> getHabitacionesXreserva() {
+    public List<Habitacion> getHabitacionesXreserva() {
         return habitacionesXreserva;
     }
 
-    public void setHabitacionesXreserva(List<DetalleReserva> habitacionesXreserva) {
+    public void setHabitacionesXreserva(List<Habitacion> habitacionesXreserva) {
         this.habitacionesXreserva = habitacionesXreserva;
     }
 
-    public Date getFecha() {
+
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
@@ -72,7 +86,7 @@ public class Reserva implements Identificable, CalcularCosto {
             throw new Habitacion_No_Disponible_Exeption(h.getEstadoHabitacion(),h.getId());
         }
         h.reservar();
-        habitacionesXreserva.add(new DetalleReserva(dias,h));
+        habitacionesXreserva.add(h);
     }
 
     public void finalizarReserva(int idhabitacion)throws Dato_No_Encontrado_Exeption{
@@ -93,25 +107,41 @@ public class Reserva implements Identificable, CalcularCosto {
     }
 
 
-    public boolean existe(int numeroDetalle)throws Dato_No_Encontrado_Exeption{
-        for (DetalleReserva detalleReserva:habitacionesXreserva){
-            if(detalleReserva.getIdDetalleReserva()==numeroDetalle){
+    public boolean existe(int idhabitacion)throws Dato_No_Encontrado_Exeption{
+        for (Habitacion h:habitacionesXreserva){
+            if(h.getId()==idhabitacion){
                 return true;
             }
         }
-        throw new Dato_No_Encontrado_Exeption(numeroDetalle);
+        throw new Dato_No_Encontrado_Exeption(idhabitacion);
     }
 
 
     @Override
     public double calcularTotal() {
         double total=0;
-        for (DetalleReserva d:habitacionesXreserva){
-           total+=d.calcularTotal1habitacion();
+        for (Habitacion d:habitacionesXreserva){
+           total+=calcularTotal1habitacion();
         }
         return total;
     }
 
+
+
+    public double calcularTotal1habitacion(){
+        for (Habitacion h:habitacionesXreserva){
+            if(Tipo_Habitacion.presidencial==h.getTipoHabitacion()){
+                return cantidadDias*presidencial;
+            }else if(Tipo_Habitacion.simple==h.getTipoHabitacion()
+            ){
+                return cantidadDias*simple;
+            }else {
+                return cantidadDias*suite;
+            }
+        }
+        return  0;
+
+    }
 
 
     @Override

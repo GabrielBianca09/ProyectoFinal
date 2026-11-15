@@ -1,6 +1,7 @@
 
 package Clases.Persona.Empleados;
 
+import Clases.Persona.Empleados.Recepcionista.Recepcionista;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
