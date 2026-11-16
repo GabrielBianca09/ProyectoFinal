@@ -53,7 +53,7 @@ public class MenuAdministrador {
             System.out.println("3 habitaciones");
             System.out.println("5 reservas");
             System.out.println("6 empleados");
-
+            System.out.println("0 salir");
             try {
                 op = sc.nextInt();
                 switch (op) {

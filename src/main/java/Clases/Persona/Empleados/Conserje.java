@@ -18,4 +18,9 @@ public class Conserje extends Empleado {
     public String toString() {
         return "Empleados.Conserje{} " + super.toString();
     }
+
+    @Override
+    public double calcularTotal() {
+        return 0;
+    }
 }

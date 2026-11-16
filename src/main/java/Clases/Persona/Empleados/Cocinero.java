@@ -17,4 +17,9 @@ public class Cocinero extends Empleado {
     public String toString() {
         return "Empleados.Cocinero{} " + super.toString();
     }
+
+    @Override
+    public double calcularTotal() {
+        return 0;
+    }
 }

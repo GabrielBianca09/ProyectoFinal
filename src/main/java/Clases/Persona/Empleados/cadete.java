@@ -9,4 +9,9 @@ public class cadete extends Empleado{
     public String toString() {
         return "cadete{} " + super.toString();
     }
+
+    @Override
+    public double calcularTotal() {
+        return 0;
+    }
 }

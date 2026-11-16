@@ -19,5 +19,8 @@ public class Mozos extends Empleado {
         return "Empleados.Maestranza{} " + super.toString();
     }
 
-
+    @Override
+    public double calcularTotal() {
+        return 0;
+    }
 }

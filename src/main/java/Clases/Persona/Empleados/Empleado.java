@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 //es una clase que hereda de persona, se hizo abstracta para que cada clase de empleado pueda implementar un calculo de sueldo diferente.
 
-public abstract class Empleado extends Persona, CalcularCosto {
+public abstract class Empleado extends Persona implements CalcularCosto {
 
     private int horasTrabajadas;
     private String direccion;
@@ -67,8 +67,7 @@ public abstract class Empleado extends Persona, CalcularCosto {
     }
 
     @Override
-    public abstract double calcularTotal() {
-    }
+    public abstract double calcularTotal();
 }
 
 

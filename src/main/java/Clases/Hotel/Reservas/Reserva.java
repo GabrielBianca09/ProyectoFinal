@@ -24,7 +24,7 @@ public class Reserva implements Identificable, CalcularCosto {
     private static final double simple=750;
     private static final double suite=1500;
     private static final double presidencial=3000;
-    private int gencon=0;
+    private static int gencon=0;
     private int idreserva;
     private Pasajero pasajero;
     private List<Habitacion>habitacionesXreserva;
