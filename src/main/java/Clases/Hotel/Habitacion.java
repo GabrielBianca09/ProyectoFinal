@@ -6,7 +6,9 @@ import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Habitacion_No_Disponible_Exeption;
 import Exepciones.OperacionInvalida;
 import Interfaces.Identificable;
-
+//en esta clase estan las funciones para cambiar el estado de habitacion que despues se utilizan en los check in y check outs.
+// tambien permite actualizar.
+//es una composicion con hotel e implementa los enums estado y tipo habitacion
 public class Habitacion implements Identificable {
     private static int numerogen=0;
     private int numeroHabitacion;

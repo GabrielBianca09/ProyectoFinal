@@ -7,7 +7,10 @@ import gestores.GestorHotel;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+//este menu es una composicion la cual tiene el gestorhotel que la clase en la cual estan todas mis funciones
+//de creacion,busqueada,eliminacion,actualizacion.
+//todos los menus reciben el mismo gestor previamente creador en main.
+//implementa funciones de ingreso de datos y uso de exepciones.
 public class MenuCliente {
     private Scanner leer;
     private GestorHotel gestorHotel;

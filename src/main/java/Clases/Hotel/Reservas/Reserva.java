@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//esta clase se utiliza para la creacion de reservas.
+//una reserva puede tener varias habitaciones por lo que se usa una lista.
+//para cambiar el estado de la habitacion se usan los metodos desocupar y devolver de la clase habitacion.
+// Implementando exepciones HabitacionNoDisponibleExeption, y DatoNoencontradoExeption ambas exepciones checked por lo que se declaran en el thows.
+//permite actualizar datos, agregarHabitaciones,calcularTotaldelaReserva o de 1 sola habitacion, tambien permite mostrar datos.
+
 public class Reserva implements Identificable, CalcularCosto {
     private static final double simple=750;
     private static final double suite=1500;
@@ -24,6 +30,7 @@ public class Reserva implements Identificable, CalcularCosto {
     private List<Habitacion>habitacionesXreserva;
     private LocalDateTime fecha;
     private int cantidadDias;
+
     public Reserva(LocalDateTime fecha,Pasajero pasajero) {
         this.fecha = fecha;
         this.habitacionesXreserva =new ArrayList<Habitacion>();

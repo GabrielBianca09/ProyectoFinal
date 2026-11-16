@@ -2,7 +2,8 @@ package Clases.Persona;
 
 import Exepciones.Datos_Invalidos_Exeption;
 import Interfaces.Identificable;
-
+// es una clase abstracta que implementa los metodos de identificable que son getid y actualizar datos(no modifica el id).
+//muestra de datos.
 public abstract class Persona implements Identificable {
     private static int cont=0;
     private int id;

@@ -7,7 +7,8 @@ import Exepciones.Datos_Invalidos_Exeption;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// es el gestor generico para poder hacer todas mis funciones en el gestorHotel.
+//extiende de identificable para poder usar los metodos getid() y actualizarDatos.
 public class Gestor<T extends Identificable> {
     private List<T>lista;
 

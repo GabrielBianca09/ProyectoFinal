@@ -6,8 +6,9 @@ import Interfaces.CalcularCosto;
 
 import java.util.ArrayList;
 import java.util.List;
+//es una clase que hereda de persona, se hizo abstracta para que cada clase de empleado pueda implementar un calculo de sueldo diferente.
 
-public class Empleado extends Persona, CalcularCosto {
+public abstract class Empleado extends Persona, CalcularCosto {
 
     private int horasTrabajadas;
     private String direccion;
@@ -66,8 +67,7 @@ public class Empleado extends Persona, CalcularCosto {
     }
 
     @Override
-    public double calcularTotal() {
-        return horasTrabajadas*salarioBase;
+    public abstract double calcularTotal() {
     }
 }
 

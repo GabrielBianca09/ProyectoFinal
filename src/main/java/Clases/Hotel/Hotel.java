@@ -1,7 +1,9 @@
 package Clases.Hotel;
 
 import Interfaces.Identificable;
-
+//realiza funciones setar datos, actualizar datos y mostrar datos es la base de mi proyecto sobre este se crean las demas clases.
+//todas mis clases implementan la interfaz indentificable, sobre esta permito que cada clase tenga un id y ademas me deja actualizar
+// los datos de todos los que la implementen.
 public class Hotel implements Identificable {
 
     private static int contador = 0;

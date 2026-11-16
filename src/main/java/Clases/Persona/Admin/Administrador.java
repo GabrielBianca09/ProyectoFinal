@@ -10,6 +10,8 @@ import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
 import Interfaces.Identificable;
 import gestores.GestorHotel;
+// esta clase es la que tiene el acceso a todos los datos y funciones del proyecto por lo cual recibe una clave y usuario para maximixar la seguridad.
+//tiene una funcion de validacion,otra de actualizacion y tambien implementa identificable.
 
 public class Administrador extends Persona implements Identificable {
     private static int cont=0;
