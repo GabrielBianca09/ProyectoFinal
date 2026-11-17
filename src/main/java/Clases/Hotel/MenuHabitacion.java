@@ -92,7 +92,7 @@ public class MenuHabitacion {
                             int nro = leer.nextInt();
                             leer.nextLine();
 
-                            if (nro <= 0) {
+                            if (nro < 0) {
                                 throw new Datos_Invalidos_Exeption("El numero debe ser mayor a 0");
                             }
 
@@ -118,7 +118,7 @@ public class MenuHabitacion {
                             int id = leer.nextInt();
                             leer.nextLine();
 
-                            if (id <= 0) {
+                            if (id < 0) {
                                 throw new Datos_Invalidos_Exeption("El ID debe ser mayor a 0");
                             }
 

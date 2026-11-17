@@ -106,7 +106,7 @@ public class MenuCliente {
                             int id = leer.nextInt();
                             leer.nextLine();
 
-                            if (id <= 0) {
+                            if (id < 0) {
                                 throw new Datos_Invalidos_Exeption("El ID debe ser mayor a 0");
                             }
 
@@ -132,7 +132,7 @@ public class MenuCliente {
                             int id = leer.nextInt();
                             leer.nextLine();
 
-                            if (id <= 0) {
+                            if (id < 0) {
                                 throw new Datos_Invalidos_Exeption("El ID debe ser mayor a 0");
                             }
 
