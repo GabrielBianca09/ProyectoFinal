@@ -78,9 +78,7 @@ public class MenuCliente {
                         break;
 
                     case 2:
-                        for (Pasajero p : gestorHotel.getHuespedes().getLista()) {
-                            System.out.println(p);
-                        }
+                       gestorHotel.mostrarhuespedes();
                         break;
 
                     case 3:

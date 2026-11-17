@@ -1,5 +1,6 @@
 package Clases.Hotel;
 
+import Exepciones.Datos_Invalidos_Exeption;
 import Interfaces.Identificable;
 //realiza funciones setar datos, actualizar datos y mostrar datos es la base de mi proyecto sobre este se crean las demas clases.
 //todas mis clases implementan la interfaz indentificable, sobre esta permito que cada clase tenga un id y ademas me deja actualizar
@@ -15,9 +16,9 @@ public class Hotel implements Identificable {
 
     /// Constructor --------------------------------------
     public Hotel(String nombreHotel, String direccionHotel, String numeroContactoHotel) {
-        this.nombreHotel = nombreHotel;
-        this.direccionHotel = direccionHotel;
-        this.numeroContactoHotel = numeroContactoHotel;
+        setNumeroContactoHotel(numeroContactoHotel);
+        setNombreHotel(nombreHotel);
+        setDireccionHotel(direccionHotel);
         this.id_hotel =contador++;
     }
 
@@ -40,14 +41,23 @@ public class Hotel implements Identificable {
     /// Setters ----------------------------------------------
 
     public void setNombreHotel(String nombreHotel) {
+        if (nombreHotel == null || nombreHotel.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El nombre del hotel no puede estar vacío");
+        }
         this.nombreHotel = nombreHotel;
     }
 
     public void setDireccionHotel(String direccionHotel) {
+        if (direccionHotel == null || direccionHotel.isBlank()) {
+            throw new Datos_Invalidos_Exeption("La dirección del hotel no puede estar vacía");
+        }
         this.direccionHotel = direccionHotel;
     }
 
     public void setNumeroContactoHotel(String numeroContactoHotel) {
+        if (numeroContactoHotel == null || numeroContactoHotel.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El número de contacto del hotel no puede estar vacío");
+        }
         this.numeroContactoHotel = numeroContactoHotel;
     }
 

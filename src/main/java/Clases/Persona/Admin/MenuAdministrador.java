@@ -82,6 +82,10 @@ public class MenuAdministrador {
                         menuEmpleado.OperacionesEmpleados();
                         break;
 
+                    default:
+                        System.out.println("opcion invalida");
+                        break;
+
                 }
             }catch (InputMismatchException e){
                 System.out.println("ingrese que desea administrar");

@@ -13,7 +13,7 @@ public class Pasajero extends Persona {
 
     public Pasajero(String nombre, String apellido, String dni, String email, String numeroCelular,String direccionOrigen) {
         super(nombre, apellido, dni, email, numeroCelular);
-        this.direccionOrigen = direccionOrigen;
+        setDireccionOrigen(direccionOrigen);
     }
 
     ///  Getters --------------------------
@@ -24,11 +24,11 @@ public class Pasajero extends Persona {
 
     /// Setters -----------------------------
 
-    public void setDireccionOrigen(String direccionOrigen) {
+    public String setDireccionOrigen(String direccionOrigen) {
         if (direccionOrigen == null || direccionOrigen.isBlank()) {
             throw new Datos_Invalidos_Exeption("La dirección de origen no puede estar vacía");
         }
-        this.direccionOrigen = direccionOrigen;
+        return this.direccionOrigen = direccionOrigen;
     }
 
     /// ToString() ----------------------

@@ -5,6 +5,7 @@ import Clases.Persona.Cliente.Pasajero;
 import Enums.EstadoHabitacion;
 import Enums.Tipo_Habitacion;
 import Exepciones.Dato_No_Encontrado_Exeption;
+import Exepciones.Datos_Invalidos_Exeption;
 import Exepciones.Habitacion_No_Disponible_Exeption;
 import Interfaces.CalcularCosto;
 import Interfaces.Identificable;
@@ -31,34 +32,42 @@ public class Reserva implements Identificable, CalcularCosto {
     private LocalDateTime fecha;
     private int cantidadDias;
 
-    public Reserva(LocalDateTime fecha,Pasajero pasajero) {
-        this.fecha = fecha;
+    public Reserva(LocalDateTime fecha,Pasajero pasajero,int cantidadDias) {
+        setFecha(fecha);
         this.habitacionesXreserva =new ArrayList<Habitacion>();
         this.idreserva =gencon++;
-        this.pasajero = pasajero;
-        this.cantidadDias=cantidadDias;
+        setPasajero(pasajero);
+        setCantidadDias(cantidadDias);
     }
 
-    public Reserva(LocalDateTime fecha,List<Habitacion> habitacionesXreserva, Pasajero pasajero) {
+    public Reserva(LocalDateTime fecha,List<Habitacion> habitacionesXreserva, Pasajero pasajero,int cantidadDias) {
         this.habitacionesXreserva = habitacionesXreserva;
         this.pasajero = pasajero;
         this.fecha=fecha;
-        this.cantidadDias=cantidadDias;
+        setCantidadDias(cantidadDias);
     }
 
     public int getCantidadDias() {
         return cantidadDias;
     }
 
-    public void setCantidadDias(int cantidadDias) {
-        this.cantidadDias = cantidadDias;
-    }
+
 
     public Pasajero getPasajero() {
         return pasajero;
     }
 
+    public void setCantidadDias(int cantidadDias) {
+        if (cantidadDias <= 0) {
+            throw new Datos_Invalidos_Exeption("La cantidad de días debe ser mayor a cero");
+        }
+        this.cantidadDias = cantidadDias;
+    }
+
     public void setPasajero(Pasajero pasajero) {
+        if (pasajero == null) {
+            throw new Datos_Invalidos_Exeption("El pasajero no puede ser nulo");
+        }
         this.pasajero = pasajero;
     }
 
@@ -70,14 +79,21 @@ public class Reserva implements Identificable, CalcularCosto {
         this.habitacionesXreserva = habitacionesXreserva;
     }
 
+    public void setFecha(LocalDateTime fecha) {
+        if (fecha == null) {
+            throw new Datos_Invalidos_Exeption("La fecha no puede ser nula");
+        }
+        this.fecha = fecha;
+    }
+
+
+
 
     public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
+
 
     public int getIdreserva() {
         return idreserva;
@@ -86,8 +102,8 @@ public class Reserva implements Identificable, CalcularCosto {
 
 
 
-    public void agregarHabitacion(Habitacion h, int dias)throws Dato_No_Encontrado_Exeption,Habitacion_No_Disponible_Exeption{
-        if (h == null || dias <= 0
+    public void agregarHabitacion(Habitacion h)throws Dato_No_Encontrado_Exeption,Habitacion_No_Disponible_Exeption{
+        if (h == null
                 || h.getEstadoHabitacion() != EstadoHabitacion.DISPONIBLE
                 || existe(h.getId())) {
             throw new Habitacion_No_Disponible_Exeption(h.getEstadoHabitacion(),h.getId());
@@ -96,13 +112,25 @@ public class Reserva implements Identificable, CalcularCosto {
         habitacionesXreserva.add(h);
     }
 
-    public void finalizarReserva(int idhabitacion)throws Dato_No_Encontrado_Exeption{
+    public void finalizarUsoHabitacion(int idhabitacion)throws Dato_No_Encontrado_Exeption{
         int pos=-1;
         pos=buscarHabitacion(idhabitacion);
         if(pos!=-1){
             habitacionesXreserva.get(pos).devolver();
         }
     }
+
+    public void devolverTodo() throws Dato_No_Encontrado_Exeption {
+
+        if (habitacionesXreserva == null || habitacionesXreserva.isEmpty()) {
+            throw new Datos_Invalidos_Exeption("La reserva no tiene habitaciones para devolver");
+        }
+
+        for (Habitacion h : habitacionesXreserva) {
+            h.devolver();
+        }
+    }
+
 
     public int buscarHabitacion(int id)throws Dato_No_Encontrado_Exeption{
         for(int i=0;i<habitacionesXreserva.size();i++){
@@ -114,41 +142,37 @@ public class Reserva implements Identificable, CalcularCosto {
     }
 
 
-    public boolean existe(int idhabitacion)throws Dato_No_Encontrado_Exeption{
-        for (Habitacion h:habitacionesXreserva){
-            if(h.getId()==idhabitacion){
+    public boolean existe(int idhabitacion) {
+        for (Habitacion h : habitacionesXreserva) {
+            if (h.getId() == idhabitacion) {
                 return true;
             }
         }
-        throw new Dato_No_Encontrado_Exeption(idhabitacion);
+        return false;
     }
-
 
     @Override
     public double calcularTotal() {
-        double total=0;
-        for (Habitacion d:habitacionesXreserva){
-           total+=calcularTotal1habitacion();
-        }
-        return total;
-    }
+            double total = 0;
 
+            for (Habitacion h : habitacionesXreserva) {
 
+                if (h.getTipoHabitacion() == Tipo_Habitacion.presidencial) {
+                    total += cantidadDias * presidencial;
 
-    public double calcularTotal1habitacion(){
-        for (Habitacion h:habitacionesXreserva){
-            if(Tipo_Habitacion.presidencial==h.getTipoHabitacion()){
-                return cantidadDias*presidencial;
-            }else if(Tipo_Habitacion.simple==h.getTipoHabitacion()
-            ){
-                return cantidadDias*simple;
-            }else {
-                return cantidadDias*suite;
+                } else if (h.getTipoHabitacion() == Tipo_Habitacion.simple) {
+                    total += cantidadDias * simple;
+
+                } else {
+                    total += cantidadDias * suite;
+                }
             }
-        }
-        return  0;
 
-    }
+            return total;
+        }
+
+
+
 
 
     @Override

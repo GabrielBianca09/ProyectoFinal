@@ -3,6 +3,7 @@ package Clases.Hotel;
 import Enums.EstadoHabitacion;
 import Enums.Tipo_Habitacion;
 import Exepciones.Dato_No_Encontrado_Exeption;
+import Exepciones.Datos_Invalidos_Exeption;
 import Exepciones.Habitacion_No_Disponible_Exeption;
 import Exepciones.OperacionInvalida;
 import Interfaces.Identificable;
@@ -20,9 +21,9 @@ public class Habitacion implements Identificable {
     /// Constructores ----------------------------
 
     public Habitacion(int capacidadOcupantes, EstadoHabitacion estadoHabitacion, Hotel hotel,Tipo_Habitacion tipoHabitacion) {
-        this.capacidadOcupantes = capacidadOcupantes;
+        setCapacidadOcupantes(capacidadOcupantes);
         this.estadoHabitacion= EstadoHabitacion.DISPONIBLE;
-        this.hotel = hotel;
+        setHotel(hotel);
         this.numeroHabitacion =numerogen++;
         this.tipoHabitacion=tipoHabitacion;
     }
@@ -36,19 +37,26 @@ public class Habitacion implements Identificable {
 
 
 
-
+    public EstadoHabitacion getEstadoHabitacion() {
+        return estadoHabitacion;
+    }
     public int getCapacidadOcupantes() {
         return capacidadOcupantes;
     }
 
     public void setCapacidadOcupantes(int capacidadOcupantes) {
+        if (capacidadOcupantes <= 0) {
+            throw new Datos_Invalidos_Exeption("La capacidad de ocupantes debe ser mayor a cero");
+        }
         this.capacidadOcupantes = capacidadOcupantes;
     }
 
-    public EstadoHabitacion getEstadoHabitacion() {
-        return estadoHabitacion;
+    public void setHotel(Hotel hotel) {
+        if (hotel == null) {
+            throw new Datos_Invalidos_Exeption("El hotel no puede ser nulo");
+        }
+        this.hotel = hotel;
     }
-
     public void setEstadoHabitacion(EstadoHabitacion estadoHabitacion) {
         this.estadoHabitacion = estadoHabitacion;
     }
@@ -57,9 +65,7 @@ public class Habitacion implements Identificable {
         return hotel;
     }
 
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
+
 
     public static int getNumerogen() {
         return numerogen;

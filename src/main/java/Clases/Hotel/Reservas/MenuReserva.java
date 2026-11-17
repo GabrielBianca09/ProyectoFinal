@@ -29,59 +29,94 @@ public class MenuReserva {
     public void menuReserva(){
         int opcion=-1;
         do {
-            int opReserva;
             System.out.println("opcion 1 agregar reserva");
             System.out.println("opcion 2 finalizar reserva");
             System.out.println("opcion 3 Eliminar reserva");
             System.out.println("opcion 4 actualizar reserva");
             System.out.println("0. Salir");
             try {
-                opReserva=leer.nextInt();
-                switch (opReserva) {
+                opcion=leer.nextInt();
+                switch (opcion) {
+
                     case 1:
-                        gestorHotel.mostrarHabitaciones();
-                        System.out.println("ingrese el id de la habitacion");
-                        int opcionhabitacion;
+
+                        Reserva r = null;
+
                         try {
-                            opcionhabitacion=leer.nextInt();
-                            Pasajero pasajero=pedirPasajero();
+                            gestorHotel.mostrarHabitaciones();
+
+                            System.out.println("Ingrese cantidad de días:");
+                            int cantidadDias = leer.nextInt();
+                            leer.nextLine();
+
+                            if (cantidadDias <= 0) {
+                                throw new Datos_Invalidos_Exeption(
+                                        "La cantidad de días debe ser mayor a cero"
+                                );
+                            }
+
+                            Pasajero pasajero = pedirPasajero();
+
                             LocalDateTime ahora = LocalDateTime.now();
-                            Reserva r=new Reserva(ahora,pasajero);
-                            if (opcionhabitacion<0) {
-                                throw new Datos_Invalidos_Exeption("la opcion debe ser mayor o igual a 0");
-                            }
-                            int opcionAgregar=-1;
+
+                            r = new Reserva(ahora, pasajero, cantidadDias);
+
+                            char salida = 's';
+                            int opcionAgregar = -1;
+
                             do {
-                                System.out.println("desea agregar una habitacion cualquier int para segui 0 para salir");
-                                opcionAgregar=leer.nextInt();
-                            }while (opcionAgregar!=0);
-                            int opciondias=-1;
-                            do {
-                                System.out.println("ingrese la cantidad de dias");
-                                opciondias=leer.nextInt();
-                            }while (opciondias <=0);
-                            Habitacion h=gestorHotel.buscarHabitacion(opcionAgregar);
-                            r.agregarHabitacion(h,opciondias);
-                            if (r.getHabitacionesXreserva().isEmpty()){
-                                System.out.println("tiene que haber al menos 1 habitacion");
+                                gestorHotel.mostrarHabitaciones();
+
+                                System.out.println("Ingrese el ID de la habitación:");
+                                opcionAgregar = leer.nextInt();
+                                leer.nextLine();
+
+                                if (opcionAgregar < 0) {
+                                    throw new Datos_Invalidos_Exeption(
+                                            "El ID no puede ser negativo"
+                                    );
+                                }
+
+                                Habitacion h = gestorHotel.buscarHabitacion(opcionAgregar);
+
+                                r.agregarHabitacion(h);
+
+                                System.out.println("Habitación agregada correctamente");
+
+                                System.out.println("¿Desea agregar otra habitación? (s/n)");
+                                salida = Character.toLowerCase(leer.next().charAt(0));
+                                leer.nextLine();
+
+                            } while (salida != 'n');
+
+                            if (r.getHabitacionesXreserva().isEmpty()) {
+                                throw new Datos_Invalidos_Exeption(
+                                        "La reserva debe tener al menos una habitación"
+                                );
                             }
-                            double total=r.calcularTotal();
+
+                            double total = r.calcularTotal();
+
                             gestorHotel.agregarReserva(r);
-                            System.out.println("el total de la reserva es : "+ total);
-                        }catch (Datos_Duplicados_Exeption | Dato_No_Encontrado_Exeption|Habitacion_No_Disponible_Exeption e){
+
+                            System.out.println("Reserva creada correctamente");
+                            System.out.println("El total de la reserva es: " + total);
+
+                        }
+                        catch (InputMismatchException e) {
+
+                            System.out.println("Ingresaste un formato inválido");
+                            leer.nextLine();
+                        }catch (Datos_Duplicados_Exeption |
+                                 Dato_No_Encontrado_Exeption |
+                                 Habitacion_No_Disponible_Exeption |
+                                 Datos_Invalidos_Exeption e) {
                             System.out.println(e.getMessage());
-                        }
-                            catch (Datos_Invalidos_Exeption e){
 
 
-                            System.out.println("ingresaste datos invalidos");
                         }
-                        catch (InputMismatchException e){
-                            System.out.println("ingresaste un formato invalido");
 
-                        }
                         break;
-
                     case 2:
                         try {
                             gestorHotel.mostrarReservas();
@@ -93,9 +128,11 @@ public class MenuReserva {
                                 throw new Datos_Invalidos_Exeption("El ID no puede ser negativo");
                             }
 
-                            Reserva r = gestorHotel.buscarReserva(id);
-                            r.finalizarReserva(id);
-                            System.out.println("Reserva finalizada");
+                            Reserva r1 = gestorHotel.buscarReserva(id);
+
+                            r1.devolverTodo();
+
+                            System.out.println("Reserva finalizada correctamente");
 
                         } catch (Dato_No_Encontrado_Exeption e) {
                             System.out.println("La reserva no existe");
@@ -144,9 +181,9 @@ public class MenuReserva {
                             if (id < 0) {
                                 throw new Datos_Invalidos_Exeption("El ID no puede ser negativo");
                             }
-                            Reserva r=gestorHotel.buscarReserva(id);
-                            r.setPasajero(pedirPasajero());
-                            gestorHotel.actualizarReserva(id,r);
+                            Reserva r2=gestorHotel.buscarReserva(id);
+                            r2.setPasajero(pedirPasajero());
+                            gestorHotel.actualizarReserva(id,r2);
 
 
                         }catch (Datos_Invalidos_Exeption e) {
@@ -170,12 +207,14 @@ public class MenuReserva {
                 }
             }catch (InputMismatchException e){
                 System.out.println("Debe ingresar un valor del tipo correcto.");
+                leer.nextLine();
             }
 
         }while (opcion!=0);
     }
 
-    public Pasajero pedirPasajero(){
+    public Pasajero pedirPasajero() {
+
         try {
             System.out.println("Ingrese el nombre:");
             String nombre = leer.nextLine();
@@ -195,15 +234,12 @@ public class MenuReserva {
             System.out.println("Ingrese dirección:");
             String direccion = leer.nextLine();
 
-            if (nombre.isBlank() || apellido.isBlank() || dni.isBlank() || email.isBlank() || celular.isBlank()) {
-                throw new Datos_Invalidos_Exeption("los datos no pueden ser nulos");
-            }
-            return new Pasajero(nombre,apellido,dni,email,celular,direccion);
+            return new Pasajero(nombre, apellido, dni, email, celular, direccion);
 
-        }catch (Datos_Invalidos_Exeption e){
-            System.out.println("Los datos no pueden ser nulos");
+        } catch (Datos_Invalidos_Exeption e) {
+            System.out.println(e.getMessage());
+            throw e;
         }
-        return null;
     }
 
 

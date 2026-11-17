@@ -21,17 +21,13 @@ public class Administrador extends Persona implements Identificable {
 
     public Administrador(String nombre, String apellido, String dni, String email, String numeroCelular, String clave,String nombreUsuario) {
         super(nombre, apellido, dni, email, numeroCelular);
-        this.clave = clave;
+        setClave(clave);
         this.id_Admin =cont++;
-        this.nombreUsuario = nombreUsuario;
+        setNombreUsuario(nombreUsuario);
     }
 
     public String getClave() {
         return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
     }
 
     public String getNombreUsuario() {
@@ -39,7 +35,17 @@ public class Administrador extends Persona implements Identificable {
     }
 
     public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+        if (nombreUsuario == null || nombreUsuario.isBlank()) {
+            throw new Datos_Invalidos_Exeption("El nombre de usuario no puede estar vacío");
+        }
+         this.nombreUsuario = nombreUsuario;
+    }
+
+    public void setClave(String clave) {
+        if (clave == null || clave.isBlank()) {
+            throw new Datos_Invalidos_Exeption("La clave no puede estar vacía");
+        }
+        this.clave = clave;
     }
 
 

@@ -9,6 +9,8 @@ import Clases.Hotel.Reservas.Reserva;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
+import Exepciones.ListaVaciaExeption;
+
 //aca se usa el gestor generico para hacer todas las funciones de cada clase.
 //funciones de creacion,eliminacion,actualizacion,busqueda,verificar existencia, listarDatos,validacion de credenciales(administrador).
 public class GestorHotel {
@@ -209,39 +211,58 @@ public class GestorHotel {
     }
 
 
+
 // ==================== MOSTRAR / LISTAR ====================
 
     public void mostrarHabitaciones() {
+        if (habitacionGestor.getLista().isEmpty()) {
+            throw new ListaVaciaExeption("no hay elementos cargados");
+        }
         for (Habitacion h : habitacionGestor.getLista()) {
             System.out.println(h.toString());
         }
     }
 
     public void mostrarhuespedes() {
+        if (huespedes.getLista().isEmpty()) {
+            throw new ListaVaciaExeption("no hay elementos");
+        }
         for (Pasajero p : huespedes.getLista()) {
             System.out.println(p.toString());
         }
     }
 
     public void mostrarEmpleados() {
+        if (empleadoGestor.getLista().isEmpty()) {
+            throw new ListaVaciaExeption("no hay elementos");
+        }
         for (Empleado e : getEmpleadoGestor().getLista()) {
             System.out.println(e.toString());
         }
     }
 
     public void mostrarReservas() {
+        if (reservaGestor.getLista().isEmpty()) {
+            throw new ListaVaciaExeption("no hay elementos");
+        }
         for (Reserva r : getReservaGestor().getLista()) {
             System.out.println(r.toString());
         }
     }
 
     public void listarHoteles() {
+        if (hoteles.getLista().isEmpty()) {
+            throw new ListaVaciaExeption("no hay elementos");
+        }
         for (Hotel h : hoteles.getLista()) {
             System.out.println(h.toString());
         }
     }
 
     public void mostrarAdministrador() {
+        if (administradorGestor.getLista().isEmpty()) {
+            throw new ListaVaciaExeption("no hay elementos");
+        }
         for (Administrador a : administradorGestor.getLista()) {
             System.out.println(a);
         }
@@ -269,7 +290,10 @@ public class GestorHotel {
     public void setHoteles(Gestor<Hotel> hoteles) {
         this.hoteles = hoteles;
     }
-
+    public void devolverReserva(int id) throws Dato_No_Encontrado_Exeption {
+        Reserva r = buscarReserva(id);
+        r.devolverTodo();
+    }
 
 
 

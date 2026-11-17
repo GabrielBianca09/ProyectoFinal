@@ -1,6 +1,7 @@
 
 package Clases.Persona.Empleados;
 
+import Clases.Persona.Cliente.Pasajero;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
@@ -30,10 +31,10 @@ public class MenuEmpleado {
         do {
             System.out.println("\n--- MENU Empleado ---");
             System.out.println("1. Agregar Empleado");
-            System.out.println("2. Listar Empleado");
+            System.out.println("2. Actualizar Empleado");
+            System.out.println("3. Listar Empleado");
             System.out.println("4. Eliminar Empleado");
-            System.out.println("5. Actualizar Empleado");
-            System.out.println("6 calcular sueldo");
+            System.out.println("5 calcular sueldo");
             System.out.println("0. Salir");
 
             try {
@@ -45,10 +46,9 @@ public class MenuEmpleado {
                     case 1:
                         try {
                             System.out.println("Seleccione el tipo de empleado:");
-                            System.out.println("1. Artista");
-                            System.out.println("2. Cocinero");
-                            System.out.println("3. Conserje");
-                            System.out.println("5. Mozos");
+                            System.out.println("2. cocinero");
+                            System.out.println("3. Conseje");
+                            System.out.println("5. mozo");
                             System.out.println("6. cadete");
 
                             int opcion = leer.nextInt();
@@ -179,6 +179,56 @@ public class MenuEmpleado {
 
                         break;
 
+                    case 3:
+                        gestorHotel.mostrarEmpleados();
+                        break;
+
+                    case 4:
+                        try {
+                            gestorHotel.mostrarEmpleados();
+                            System.out.println("Ingrese el ID del empleado a eliminar:");
+                            int id = leer.nextInt();
+                            leer.nextLine();
+
+                            if (id <= 0) {
+                                throw new Datos_Invalidos_Exeption("El ID debe ser mayor a 0");
+                            }
+
+                            gestorHotel.eliminarEmpleado(id);
+
+                            System.out.println("empleado eliminado correctamente");
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("Ingrese un numero entero");
+                            leer.nextLine();
+
+                        } catch (Dato_No_Encontrado_Exeption e) {
+                            System.out.println("El pasajero no existe");
+
+                        } catch (Datos_Invalidos_Exeption e) {
+                            System.out.println(e.getMessage());
+                        }
+                        break;
+
+                    case 5:
+                        try {
+                            gestorHotel.mostrarEmpleados();
+                            System.out.println("Ingrese el ID del empleado:");
+                            int id = leer.nextInt();
+                            leer.nextLine();
+
+                            Empleado e= gestorHotel.buscarEmpleado(id);
+                            System.out.println(e);
+                            System.out.println("el sueldo del empleado "+e.getNombre()+"es un total de"+e.calcularTotal());
+
+                        } catch (InputMismatchException e) {
+                            System.out.println("Ingrese un numero entero");
+                            leer.nextLine();
+
+                        } catch (Dato_No_Encontrado_Exeption e) {
+                            System.out.println("El pasajero no existe");
+                        }
+                        break;
                     case 0:
                         System.out.println("Saliendo del menú de empleados");
                         break;
