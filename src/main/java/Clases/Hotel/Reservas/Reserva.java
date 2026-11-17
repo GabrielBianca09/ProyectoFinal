@@ -190,6 +190,7 @@ public class Reserva implements Identificable, CalcularCosto {
 
     }
 
+
     public void setIdreserva(int idreserva) {
         this.idreserva = idreserva;
     }

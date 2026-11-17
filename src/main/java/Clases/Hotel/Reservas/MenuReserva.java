@@ -33,6 +33,7 @@ public class MenuReserva {
             System.out.println("opcion 2 finalizar  check out");
             System.out.println("opcion 3 Eliminar reserva");
             System.out.println("opcion 4 actualizar reserva");
+            System.out.println("opcion 5 listar reservas");
             System.out.println("0. Salir");
             try {
                 opcion=leer.nextInt();
@@ -55,6 +56,7 @@ public class MenuReserva {
                                 );
                             }
 
+                            System.out.println("ingrese los datos del cliente");
                             Pasajero pasajero = pedirPasajero();
 
                             LocalDateTime ahora = LocalDateTime.now();
@@ -183,14 +185,19 @@ public class MenuReserva {
                             }
                             System.out.println("ingrese la cantida de dias");
                             int cantda = leer.nextInt();
+                            leer.nextLine();
                             if ( cantda<= 0) {
                                 throw new Datos_Invalidos_Exeption(
                                         "La cantidad de días debe ser mayor a cero"
                                 );
                             }
+                            System.out.println("Buscando reserva...");
                             Reserva r2=gestorHotel.buscarReserva(id);
+
+                            System.out.println("Reserva encontrada. Actualizando...");
                             r2.setCantidadDias(cantda);
                             r2.setPasajero(pedirPasajero());
+                            System.out.println("Guardando cambios...");
                             gestorHotel.actualizarReserva(id,r2);
 
 
@@ -201,6 +208,10 @@ public class MenuReserva {
                         } catch (InputMismatchException e){
                             System.out.println("Debe ingresar un valor del tipo correcto.");
                         }
+                        break;
+
+                    case 5:
+                        gestorHotel.mostrarReservas();
                         break;
 
                     case 0:
@@ -222,6 +233,7 @@ public class MenuReserva {
     public Pasajero pedirPasajero() {
 
         try {
+
             System.out.println("Ingrese el nombre:");
             String nombre = leer.nextLine();
 

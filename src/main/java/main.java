@@ -19,12 +19,23 @@ public class main {
         GestorHotel gestorHotel=new GestorHotel();
         Scanner leer=new Scanner(System.in);
 
+
+
         try {
             MenuAdministrador menuAdministrador=new MenuAdministrador(gestorHotel);
             menuAdministrador.menuAdministrador();
         }catch (Datos_Invalidos_Exeption e){
             System.out.println("datos_invalidos");
         }
+
+        try {
+            RecepcionConserje r=new RecepcionConserje(gestorHotel,new Conserje("pepe","grillo","4343345","rereara","2332",5,"loma",500));
+            r.menuResepcicionista();
+        }catch (Datos_Invalidos_Exeption e){
+            System.out.println("datos_invalidos");
+        }
+
+
 
 //        Hotel h1 = new Hotel("Hotel Costa Galana", "Av. Patricio Peralta Ramos 5725, Mar del Plata", "2234512345");
 //        Hotel h2 = new Hotel("Hotel Provincial", "Av. Patricio Peralta Ramos 2502, Mar del Plata", "2234523456");

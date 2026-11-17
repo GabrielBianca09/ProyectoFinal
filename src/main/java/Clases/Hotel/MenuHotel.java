@@ -113,7 +113,7 @@ public class MenuHotel {
                         }
                         break;
                     case 0:
-                        System.out.println("Salir del hotel");
+                        System.out.println("Saliendo del menu hotel");
                         break;
                     default:
                         System.out.println("Ingrese una opcion valida");
@@ -121,6 +121,7 @@ public class MenuHotel {
                 }
             }catch(InputMismatchException e){
                 System.out.println("Error al intentar el opcion, debe ser una opcion valida");
+                sc.nextLine();
             }
 
         }while (op!=0);

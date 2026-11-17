@@ -57,17 +57,24 @@ public class Gestor<T extends Identificable> {
 
     //falta el metodo para actualizar datos generico
 
-    public void actualizar(T nuevo,int id)throws Datos_Invalidos_Exeption,Dato_No_Encontrado_Exeption{
-        if (nuevo==null){
-            throw new Datos_Invalidos_Exeption("no se aceptan datos nulos");
+
+    public void actualizar(T nuevo, int id)
+            throws Datos_Invalidos_Exeption, Dato_No_Encontrado_Exeption {
+
+        if (nuevo == null) {
+            throw new Datos_Invalidos_Exeption("No se aceptan datos nulos");
         }
-        for (T element:lista){
-            if(element.getId()==id){
+
+        for (T element : lista) {
+            if (element.getId() == id) {
                 element.actualizarDatos(nuevo);
+                return;
             }
         }
+
         throw new Dato_No_Encontrado_Exeption(id);
     }
+
 
     public List<T> getLista() {
         return lista;

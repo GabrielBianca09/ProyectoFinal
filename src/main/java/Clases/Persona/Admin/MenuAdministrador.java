@@ -47,6 +47,9 @@ public class MenuAdministrador {
     public void menuAdministrador(){
         int op=-1;
         do {
+            System.out.println("----------------------------------------------------------------");
+            System.out.println("bienvenido al menu de operaciones para el administrador");
+            System.out.println("----------------------------------------------------------------");
             System.out.println("ingrese que desea administrar");
             System.out.println("1 hoteles");
             System.out.println("2 clientes");
@@ -82,6 +85,10 @@ public class MenuAdministrador {
                         menuEmpleado.OperacionesEmpleados();
                         break;
 
+                    case 0:
+                        System.out.println("Saliendo del menu administrador");
+                        break;
+
                     default:
                         System.out.println("opcion invalida");
                         break;
@@ -89,7 +96,7 @@ public class MenuAdministrador {
                 }
             }catch (InputMismatchException e){
                 System.out.println("ingrese que desea administrar");
-                sc.next();
+                sc.nextLine();
             }
 
         }while (op!=0);
