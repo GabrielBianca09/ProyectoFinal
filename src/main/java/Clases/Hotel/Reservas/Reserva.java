@@ -186,6 +186,7 @@ public class Reserva implements Identificable, CalcularCosto {
         this.fecha =r.getFecha();
         this.habitacionesXreserva=r.getHabitacionesXreserva();
         this.pasajero =r.getPasajero();
+        this.cantidadDias=r.getCantidadDias();
 
     }
 

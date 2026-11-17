@@ -29,8 +29,8 @@ public class MenuReserva {
     public void menuReserva(){
         int opcion=-1;
         do {
-            System.out.println("opcion 1 agregar reserva");
-            System.out.println("opcion 2 finalizar reserva");
+            System.out.println("opcion 1 agregar reserva check in");
+            System.out.println("opcion 2 finalizar  check out");
             System.out.println("opcion 3 Eliminar reserva");
             System.out.println("opcion 4 actualizar reserva");
             System.out.println("0. Salir");
@@ -181,7 +181,15 @@ public class MenuReserva {
                             if (id < 0) {
                                 throw new Datos_Invalidos_Exeption("El ID no puede ser negativo");
                             }
+                            System.out.println("ingrese la cantida de dias");
+                            int cantda = leer.nextInt();
+                            if ( cantda<= 0) {
+                                throw new Datos_Invalidos_Exeption(
+                                        "La cantidad de días debe ser mayor a cero"
+                                );
+                            }
                             Reserva r2=gestorHotel.buscarReserva(id);
+                            r2.setCantidadDias(cantda);
                             r2.setPasajero(pedirPasajero());
                             gestorHotel.actualizarReserva(id,r2);
 
@@ -193,8 +201,6 @@ public class MenuReserva {
                         } catch (InputMismatchException e){
                             System.out.println("Debe ingresar un valor del tipo correcto.");
                         }
-
-
                         break;
 
                     case 0:
