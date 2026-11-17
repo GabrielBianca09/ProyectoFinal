@@ -6,9 +6,8 @@ import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
 import Exepciones.Habitacion_No_Disponible_Exeption;
-import gestores.GestorHotel;
+import Gestores.GestorHotel;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -160,6 +159,7 @@ public class MenuReserva {
                             }
 
                             gestorHotel.eliminarReserva(id);
+                            gestorHotel.devolverReserva(id);
                             System.out.println("Reserva eliminada con exito");
 
                         } catch (Dato_No_Encontrado_Exeption e) {

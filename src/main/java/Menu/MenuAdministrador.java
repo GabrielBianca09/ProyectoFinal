@@ -7,6 +7,7 @@ import Clases.Persona.Cliente.MenuCliente;
 import Clases.Persona.Empleados.MenuEmpleado;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
+import Exepciones.Error_De_Acceso_A_Datos_Exeption;
 import gestores.GestorHotel;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -97,6 +98,8 @@ public class MenuAdministrador {
             }catch (InputMismatchException e){
                 System.out.println("ingrese que desea administrar");
                 sc.nextLine();
+            } catch (Error_De_Acceso_A_Datos_Exeption e) {
+                throw new RuntimeException(e);
             }
 
         }while (op!=0);

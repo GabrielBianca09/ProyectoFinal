@@ -5,9 +5,12 @@ import Enums.Tipo_Habitacion;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
+import Exepciones.Error_De_Acceso_A_Datos_Exeption;
 import gestores.GestorHotel;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 //este menu es una composicion la cual tiene el gestorhotel que la clase en la cual estan todas mis funciones
 //de creacion,busqueada,eliminacion,actualizacion.
@@ -23,7 +26,7 @@ public class MenuHabitacion {
         this.gestorHotel = gestorHotel;
     }
 
-    public void operacionesConHabitaciones() {
+    public void operacionesConHabitaciones() throws Error_De_Acceso_A_Datos_Exeption {
 
         int op = -1;
 
@@ -82,7 +85,10 @@ public class MenuHabitacion {
                         break;
 
                     case 2:
-                        gestorHotel.mostrarHabitaciones();
+
+                       List<Habitacion> lista= new ArrayList<>(gestorHotel.listarHabitaciones());
+                       System.out.println(lista.toString());
+
                         break;
 
                     case 3:
