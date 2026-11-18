@@ -62,7 +62,9 @@ public class HabitacionDao implements DAO<Habitacion> {
     }
 
     @Override
-    public void actualizar(Habitacion element, int id) throws Error_De_Acceso_A_Datos_Exeption, Dato_No_Encontrado_Exeption {
+    public void actualizar(Habitacion element, int id)
+            throws Error_De_Acceso_A_Datos_Exeption,
+            Dato_No_Encontrado_Exeption {
 
         try (Connection con = Conexion.getConexion();
              PreparedStatement ps = con.prepareStatement(SQL_ACTUALIZAR)) {
@@ -71,19 +73,18 @@ public class HabitacionDao implements DAO<Habitacion> {
             ps.setInt(2, element.getHotel().getId_hotel());
             ps.setString(3, element.getEstadoHabitacion().name());
             ps.setString(4, element.getTipoHabitacion().name());
-            ps.setInt(5, element.getNumeroHabitacion());
+            ps.setInt(5, id);
 
             int filas = ps.executeUpdate();
 
             if (filas == 0) {
-                throw new Dato_No_Encontrado_Exeption(element.getNumeroHabitacion());
+                throw new Dato_No_Encontrado_Exeption(id);
             }
 
         } catch (SQLException e) {
             throw new Error_De_Acceso_A_Datos_Exeption(e.getMessage(), e);
         }
     }
-
     @Override
     public void eliminar(int id) throws Error_De_Acceso_A_Datos_Exeption, Dato_No_Encontrado_Exeption {
 

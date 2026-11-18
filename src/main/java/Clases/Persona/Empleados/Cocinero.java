@@ -23,9 +23,9 @@ public class Cocinero extends Empleado {
 
     @Override
     public String toString() {
-        return "Cocinero{" +
-                "tipo_de_trabajo=" + tipo_de_trabajo +
-                "} " + super.toString();
+        return "========== COCINERO ==========\n" +
+                "Tipo de trabajo: " + tipo_de_trabajo + "\n" +
+                super.toString();
     }
 
     /// ToString() ------------------------------

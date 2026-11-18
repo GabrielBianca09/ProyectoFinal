@@ -114,17 +114,17 @@ public abstract class Persona implements Identificable {
     }
 
     /// ToString -------------------------------------------
-
-
     @Override
     public String toString() {
-        return "Persona{" +
-                "apellido='" + apellido + '\'' +
-                ", id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", dni='" + dni + '\'' +
-                ", email='" + email + '\'' +
-                ", numeroCelular='" + numeroCelular + '\'' +
-                '}';
+        return "========== PERSONA ==========\n" +
+                "ID: " + id + "\n" +
+                "Nombre: " + nombre + "\n" +
+                "Apellido: " + apellido + "\n" +
+                "DNI: " + dni + "\n" +
+                "Email: " + email + "\n" +
+                "Número de celular: " + numeroCelular + "\n" +
+                "=============================";
     }
+
+
 }

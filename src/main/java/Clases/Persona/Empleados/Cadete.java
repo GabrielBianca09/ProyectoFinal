@@ -19,9 +19,9 @@ public class Cadete extends Empleado{
 
     @Override
     public String toString() {
-        return "cadete{" +
-                "tipo_de_trabajo=" + tipo_de_trabajo +
-                "} " + super.toString();
+        return "========== CADETE ==========\n" +
+                "Tipo de trabajo: " + tipo_de_trabajo + "\n" +
+                super.toString();
     }
 
     @Override

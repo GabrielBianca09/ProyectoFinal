@@ -48,7 +48,7 @@ public class MenuHabitacion {
 
                     case 1:
                         try {
-                            gestorHotel.listarHoteles();
+                            gestorHotel.mostarHotelBD();
                             System.out.println("Ingrese el numero de hotel:");
                             int numHotel = leer.nextInt();
                             leer.nextLine();

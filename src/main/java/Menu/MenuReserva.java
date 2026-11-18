@@ -5,6 +5,8 @@ import Clases.Hotel.Reservas.Reserva;
 import Clases.Persona.Cliente.Pasajero;
 import Exepciones.*;
 import Gestores.GestorHotel;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -157,21 +159,24 @@ public class MenuReserva {
                             int id = leer.nextInt();
                             leer.nextLine();
 
-                            if (id <= 0) {
+                            if (id < 0) {
                                 throw new Datos_Invalidos_Exeption(
                                         "El ID debe ser mayor a cero"
                                 );
                             }
 
                             // Primero devolvemos la habitación.
-                            gestorHotel.devolverReserva(id);
-
+                            gestorHotel.devolverHabitacionesReserva(id);
                             // Después eliminamos la reserva.
                             gestorHotel.eliminarReserva(id);
 
                             System.out.println("Reserva eliminada con éxito.");
 
-                        } catch (Dato_No_Encontrado_Exeption e) {
+                        }catch (Error_De_Acceso_A_Datos_Exeption e){
+                            System.out.println(e.getMessage());
+                        }
+
+                        catch (Dato_No_Encontrado_Exeption e) {
                             System.out.println("La reserva no existe.");
 
                         } catch (Datos_Invalidos_Exeption e) {

@@ -6,6 +6,7 @@ import Clases.Persona.Empleados.Empleado;
 import Clases.Hotel.Habitacion;
 import Clases.Persona.Cliente.Pasajero;
 import Clases.Hotel.Reservas.Reserva;
+import Enums.EstadoHabitacion;
 import Exepciones.*;
 import Interfaces.DAO;
 import SQL.HabitacionDao;
@@ -304,9 +305,40 @@ public class GestorHotel {
     public void setHoteles(Gestor<Hotel> hoteles) {
         this.hoteles = hoteles;
     }
-    public void devolverReserva(int id) throws Dato_No_Encontrado_Exeption {
+
+
+    public void devolverHabitacionesReserva(int id)
+            throws Dato_No_Encontrado_Exeption,
+            Error_De_Acceso_A_Datos_Exeption {
+
         Reserva r = buscarReserva(id);
-        r.devolverTodo();
+
+        for (Habitacion h : r.getHabitacionesXreserva()) {
+
+            if (h.getEstadoHabitacion() == EstadoHabitacion.RESERVADA) {
+
+                h.devolver();
+
+                habitacionDao.actualizar(h, h.getNumeroHabitacion());
+            }
+        }
+    }
+
+    public void devolverHabitacionReserva(int idReserva, int idHabitacion)
+            throws Dato_No_Encontrado_Exeption,
+            Error_De_Acceso_A_Datos_Exeption {
+
+        Reserva r = buscarReserva(idReserva);
+
+        int pos = r.buscarHabitacion(idHabitacion);
+
+        Habitacion h = r.getHabitacionesXreserva().get(pos);
+
+        h.devolver();
+
+        habitacionDao.actualizar(h, idHabitacion);
+
+        r.getHabitacionesXreserva().remove(pos);
     }
 
 

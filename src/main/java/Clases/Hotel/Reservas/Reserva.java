@@ -216,12 +216,14 @@ public class Reserva implements Identificable, CalcularCosto {
 
     @Override
     public String toString() {
-        return "Reserva{" +
-                "fecha=" + fecha +
-                ", gencon=" + gencon +
-                ", idreserva=" + idreserva +
-                ", pasajero=" + pasajero +
-                ", habitacionesXreserva=" + habitacionesXreserva + "total de la reserva"+calcularTotal()+
-                '}';
+        return "========== RESERVA ==========\n" +
+                "ID de reserva: " + idreserva + "\n" +
+                "Pasajero: " + pasajero + "\n" +
+                "Fecha: " + fecha + "\n" +
+                "Cantidad de días: " + cantidadDias + "\n" +
+                "Habitaciones:\n" + habitacionesXreserva + "\n" +
+                "-----------------------------\n" +
+                "TOTAL DE LA RESERVA: $" + calcularTotal() + "\n" +
+                "=============================";
     }
 }

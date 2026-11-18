@@ -20,15 +20,15 @@ public class Conserje extends Empleado {
         this.tipoDeTrabajo = tipoDeTrabajo;
     }
 
-    @Override
-    public String toString() {
-        return "Conserje{" +
-                "tipoDeTrabajo=" + tipoDeTrabajo +
-                "} " + super.toString();
-    }
+
 
     /// ToString() -------------------------------
-
+    @Override
+    public String toString() {
+        return "========== CONSERJE ==========\n" +
+                "Tipo de trabajo: " + tipoDeTrabajo + "\n" +
+                super.toString();
+    }
 
 
 

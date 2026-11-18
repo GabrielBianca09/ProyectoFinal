@@ -64,12 +64,14 @@ public abstract class Empleado extends Persona implements CalcularCosto {
 
     @Override
     public String toString() {
-        return "Empleados.Empleado{" +super.toString() +
-                "horasTrabajadas=" + horasTrabajadas +
-                ", direccion='" + direccion + '\'' +
-                ", salarioPorHora=" + salarioBase +
-                ", salario="+calcularTotal()+
-                '}';
+        return "========== EMPLEADO ==========\n" +
+                super.toString() + "\n" +
+                "Horas trabajadas: " + horasTrabajadas + "\n" +
+                "Dirección: " + direccion + "\n" +
+                "Salario por hora: $" + salarioBase + "\n" +
+                "------------------------------\n" +
+                "SALARIO TOTAL: $" + calcularTotal() + "\n" +
+                "==============================";
     }
 
     @Override

@@ -35,10 +35,11 @@ public class Pasajero extends Persona {
 
     @Override
     public String toString() {
-        return "Reservas.Pasajero {" + super.toString() + "direccionOrigen=" + direccionOrigen + '}';
+        return "Pasajero {" +
+                super.toString() +
+                ", direccionOrigen='" + direccionOrigen + '\'' +
+                '}';
     }
-
-
 
 
 }

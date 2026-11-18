@@ -22,9 +22,9 @@ public class Mozos extends Empleado {
 
     @Override
     public String toString() {
-        return "Mozos{" +
-                "tipo_de_trabajo=" + tipo_de_trabajo +
-                "} " + super.toString();
+        return "========== MOZOS ==========\n" +
+                "Tipo de trabajo: " + tipo_de_trabajo + "\n" +
+                super.toString();
     }
 
     /// ToString() ------------------------------------
