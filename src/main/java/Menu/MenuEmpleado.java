@@ -121,6 +121,7 @@ public class MenuEmpleado {
 
                     case 2:
                         try {
+                            gestorHotel.mostrarEmpleados();
                             System.out.println("Ingrese el ID del empleado que desea actualizar:");
                             int id = leer.nextInt();
                             leer.nextLine();

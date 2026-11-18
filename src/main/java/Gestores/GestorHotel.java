@@ -220,7 +220,7 @@ public class GestorHotel {
 
     public void mostrarhuespedes() {
         if (huespedes.getLista().isEmpty()) {
-            throw new ListaVaciaExeption("no hay elementos");
+            System.out.println("la lista esta vacia");
         }
         for (Pasajero p : huespedes.getLista()) {
             System.out.println(p.toString());
@@ -229,7 +229,7 @@ public class GestorHotel {
 
     public void mostrarEmpleados() {
         if (empleadoGestor.getLista().isEmpty()) {
-            throw new ListaVaciaExeption("no hay elementos");
+            System.out.println("la lista esta vacia");
         }
         for (Empleado e : getEmpleadoGestor().getLista()) {
             System.out.println(e.toString());
@@ -238,7 +238,7 @@ public class GestorHotel {
 
     public void mostrarReservas() {
         if (reservaGestor.getLista().isEmpty()) {
-            throw new ListaVaciaExeption("no hay elementos");
+            System.out.println("la lista esta vacia");
         }
         for (Reserva r : getReservaGestor().getLista()) {
             System.out.println(r.toString());
@@ -252,7 +252,7 @@ public class GestorHotel {
 
     public void mostrarAdministrador() {
         if (administradorGestor.getLista().isEmpty()) {
-            throw new ListaVaciaExeption("no hay elementos");
+            System.out.println("la lista esta vacia");
         }
         for (Administrador a : administradorGestor.getLista()) {
             System.out.println(a);

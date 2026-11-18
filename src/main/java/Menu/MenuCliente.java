@@ -84,6 +84,7 @@ public class MenuCliente {
 
                     case 3:
                         try {
+                            gestorHotel.mostrarhuespedes();
                             System.out.println("Ingrese el ID del pasajero:");
                             int id = leer.nextInt();
                             leer.nextLine();
@@ -103,6 +104,7 @@ public class MenuCliente {
 
                     case 4:
                         try {
+                            gestorHotel.mostrarhuespedes();
                             System.out.println("Ingrese el ID del pasajero a eliminar:");
                             int id = leer.nextInt();
                             leer.nextLine();
@@ -129,6 +131,7 @@ public class MenuCliente {
 
                     case 5:
                         try {
+                            gestorHotel.mostrarhuespedes();
                             System.out.println("Ingrese el ID del pasajero a actualizar:");
                             int id = leer.nextInt();
                             leer.nextLine();
