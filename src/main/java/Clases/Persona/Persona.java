@@ -28,11 +28,11 @@ public abstract class Persona implements Identificable {
 
     public Persona(int id, String nombre, String apellido, String dni, String email, String numeroCelular) {
         this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.email = email;
-        this.numeroCelular = numeroCelular;
+        setApellido(apellido);
+        setDni(dni);
+        setEmail(email);
+        setNumeroCelular(numeroCelular);
+        setNombre(nombre);
     }
 
     @Override

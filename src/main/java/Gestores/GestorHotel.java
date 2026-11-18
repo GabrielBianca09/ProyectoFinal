@@ -212,6 +212,9 @@ public class GestorHotel {
 // ==================== MOSTRAR / LISTAR ====================
 
     public void mostrarHabitaciones()  {
+        if(habitacionGestor.getLista().isEmpty()){
+            System.out.println("la lista esta vacia");
+        }
 
         for (Habitacion h : habitacionGestor.getLista()) {
             System.out.println(h.toString());
