@@ -1,8 +1,10 @@
-package Clases.Hotel;
+package Menu;
+import Clases.Hotel.Hotel;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
-import gestores.GestorHotel;
+import Exepciones.Error_De_Acceso_A_Datos_Exeption;
+import Gestores.GestorHotel;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -50,24 +52,29 @@ public class MenuHotel {
                             System.out.println("no se puede poner datos nulos");
                         }catch (Datos_Duplicados_Exeption e){
                             System.out.println("no se puede poner datos duplicados");
+                        } catch (Error_De_Acceso_A_Datos_Exeption e) {
+                            throw new RuntimeException(e);
                         }
                         break;
 
                     case 2:
-                        gestorHotel.listarHoteles();
+                        gestorHotel.mostarHotelBD();
                         break;
 
                     case 3:
                         int ophotel=-1;
-                        gestorHotel.listarHoteles();
+                        gestorHotel.mostarHotelBD();
                         System.out.println("ingrese el numero de hotel a eliminar:");
+
                         try {
                             ophotel=sc.nextInt();
                             sc.nextLine();
                             if (ophotel <0){
                                 throw new Datos_Invalidos_Exeption("el id debe ser mayor a o igual a 0");
                             }
+                            Hotel h = gestorHotel.BuscarHotel(ophotel);
                             gestorHotel.eliminarHotel(ophotel);
+                            System.out.println("el hotel " + h.getNombreHotel() + " eliminado exitosamente" );
                         }catch (Dato_No_Encontrado_Exeption e){
                             System.out.println("no se encontro el hotel");
                         }catch (Datos_Invalidos_Exeption e){
@@ -79,10 +86,11 @@ public class MenuHotel {
                         break;
 
                     case 4:
-                        gestorHotel.listarHoteles();
+                        gestorHotel.mostarHotelBD();
                         System.out.println("ingrese el numero de hotel a actualizar:");
                         try {
                             ophotel=sc.nextInt();
+                            sc.nextLine();
                             if (ophotel <0){
                                 throw new Datos_Invalidos_Exeption("el id debe ser mayor a o igual a 0");
                             }
@@ -119,7 +127,7 @@ public class MenuHotel {
                         System.out.println("Ingrese una opcion valida");
                         break;
                 }
-            }catch(InputMismatchException e){
+            }catch(InputMismatchException | Error_De_Acceso_A_Datos_Exeption e){
                 System.out.println("Error al intentar el opcion, debe ser una opcion valida");
                 sc.nextLine();
             }

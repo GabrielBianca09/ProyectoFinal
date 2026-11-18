@@ -1,11 +1,11 @@
 
-package Clases.Persona.Empleados;
+package Menu;
 
-import Clases.Persona.Cliente.Pasajero;
+import Clases.Persona.Empleados.*;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
-import gestores.GestorHotel;
+import Gestores.GestorHotel;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -99,7 +99,7 @@ public class MenuEmpleado {
                                     empleado = new Mozos(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
                                 case 6:
-                                    empleado = new cadete(nombre, apellido, dni, email, celular, horas, direccion, salario);
+                                    empleado = new Cadete(nombre, apellido, dni, email, celular, horas, direccion, salario);
                                     break;
                             }
 

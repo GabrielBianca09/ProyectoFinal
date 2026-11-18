@@ -26,6 +26,14 @@ public abstract class Persona implements Identificable {
         this.id=cont++;
     }
 
+    public Persona(int id, String nombre, String apellido, String dni, String email, String numeroCelular) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.email = email;
+        this.numeroCelular = numeroCelular;
+    }
 
     @Override
     public int getId() {

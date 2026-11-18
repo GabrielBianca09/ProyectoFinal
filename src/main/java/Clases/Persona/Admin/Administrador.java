@@ -1,15 +1,8 @@
 package Clases.Persona.Admin;
 
-import Clases.Hotel.Habitacion;
-import Clases.Hotel.Reservas.Reserva;
-import Clases.Persona.Cliente.Pasajero;
-import Clases.Persona.Empleados.Empleado;
 import Clases.Persona.Persona;
-import Exepciones.Dato_No_Encontrado_Exeption;
-import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
 import Interfaces.Identificable;
-import gestores.GestorHotel;
 // esta clase es la que tiene el acceso a todos los datos y funciones del proyecto por lo cual recibe una clave y usuario para maximixar la seguridad.
 //tiene una funcion de validacion,otra de actualizacion y tambien implementa identificable.
 

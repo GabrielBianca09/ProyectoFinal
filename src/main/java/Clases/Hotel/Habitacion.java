@@ -28,14 +28,13 @@ public class Habitacion implements Identificable {
         this.tipoHabitacion=tipoHabitacion;
     }
 
-    public void cambiardatosSinCambiarId(Habitacion h){
-        this.capacidadOcupantes=h.getCapacidadOcupantes();
-        this.estadoHabitacion=h.getEstadoHabitacion();
-        this.hotel=h.getHotel();
-        this.tipoHabitacion=h.getTipoHabitacion();
+    public Habitacion(int numeroHabitacion, int capacidadOcupantes, Hotel hotel, EstadoHabitacion estadoHabitacion, Tipo_Habitacion tipoHabitacion) {
+        this.numeroHabitacion = numeroHabitacion;
+        this.capacidadOcupantes = capacidadOcupantes;
+        this.hotel = hotel;
+        this.estadoHabitacion = estadoHabitacion;
+        this.tipoHabitacion = tipoHabitacion;
     }
-
-
 
     public EstadoHabitacion getEstadoHabitacion() {
         return estadoHabitacion;

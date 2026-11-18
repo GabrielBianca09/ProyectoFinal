@@ -22,6 +22,13 @@ public class Hotel implements Identificable {
         this.id_hotel =contador++;
     }
 
+    public Hotel(int id_hotel, String nombreHotel, String direccionHotel, String numeroContactoHotel) {
+        this.id_hotel = id_hotel;
+        this.nombreHotel = nombreHotel;
+        this.direccionHotel = direccionHotel;
+        this.numeroContactoHotel = numeroContactoHotel;
+    }
+
     /// Getters -------------------------------------------
     public String getNombreHotel() {
         return nombreHotel;

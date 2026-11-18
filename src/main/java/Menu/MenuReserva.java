@@ -1,11 +1,9 @@
-package Clases.Hotel.Reservas;
+package Menu;
 
 import Clases.Hotel.Habitacion;
+import Clases.Hotel.Reservas.Reserva;
 import Clases.Persona.Cliente.Pasajero;
-import Exepciones.Dato_No_Encontrado_Exeption;
-import Exepciones.Datos_Duplicados_Exeption;
-import Exepciones.Datos_Invalidos_Exeption;
-import Exepciones.Habitacion_No_Disponible_Exeption;
+import Exepciones.*;
 import Gestores.GestorHotel;
 import java.time.LocalDateTime;
 import java.util.InputMismatchException;
@@ -43,7 +41,6 @@ public class MenuReserva {
                         Reserva r = null;
 
                         try {
-                            gestorHotel.mostrarHabitaciones();
 
                             System.out.println("Ingrese cantidad de días:");
                             int cantidadDias = leer.nextInt();
@@ -66,7 +63,7 @@ public class MenuReserva {
                             int opcionAgregar = -1;
 
                             do {
-                                gestorHotel.mostrarHabitaciones();
+                                gestorHotel.mostarHabitacionBD();
 
                                 System.out.println("Ingrese el ID de la habitación:");
                                 opcionAgregar = leer.nextInt();
@@ -103,19 +100,24 @@ public class MenuReserva {
                             System.out.println("Reserva creada correctamente");
                             System.out.println("El total de la reserva es: " + total);
 
-                        }
-                        catch (InputMismatchException e) {
 
-                            System.out.println("Ingresaste un formato inválido");
-                            leer.nextLine();
                         }catch (Datos_Duplicados_Exeption |
                                  Dato_No_Encontrado_Exeption |
-                                 Habitacion_No_Disponible_Exeption |
                                  Datos_Invalidos_Exeption e) {
                             System.out.println(e.getMessage());
 
 
+                        } catch (Error_De_Acceso_A_Datos_Exeption e) {
+                            throw new RuntimeException(e);
+                        }catch (Habitacion_No_Disponible_Exeption e){
+                            System.out.println(e.getMessage());
                         }
+
+                                catch (InputMismatchException e) {
+
+                    System.out.println("Ingresaste un formato inválido");
+                    leer.nextLine();
+                }
 
                         break;
                     case 2:
@@ -150,20 +152,27 @@ public class MenuReserva {
                     case 3:
                         try {
                             gestorHotel.mostrarReservas();
+
                             System.out.println("Ingrese el ID de la reserva a eliminar:");
                             int id = leer.nextInt();
                             leer.nextLine();
 
-                            if (id < 0) {
-                                throw new Datos_Invalidos_Exeption("El ID no puede ser negativo");
+                            if (id <= 0) {
+                                throw new Datos_Invalidos_Exeption(
+                                        "El ID debe ser mayor a cero"
+                                );
                             }
 
-                            gestorHotel.eliminarReserva(id);
+                            // Primero devolvemos la habitación.
                             gestorHotel.devolverReserva(id);
-                            System.out.println("Reserva eliminada con exito");
+
+                            // Después eliminamos la reserva.
+                            gestorHotel.eliminarReserva(id);
+
+                            System.out.println("Reserva eliminada con éxito.");
 
                         } catch (Dato_No_Encontrado_Exeption e) {
-                            System.out.println("La reserva no existe");
+                            System.out.println("La reserva no existe.");
 
                         } catch (Datos_Invalidos_Exeption e) {
                             System.out.println(e.getMessage());

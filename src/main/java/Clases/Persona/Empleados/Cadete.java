@@ -2,9 +2,9 @@ package Clases.Persona.Empleados;
 
 import Enums.Tipo_de_Trabajo;
 
-public class cadete extends Empleado{
+public class Cadete extends Empleado{
     private Tipo_de_Trabajo tipo_de_trabajo;
-    public cadete(String nombre, String apellido, String dni, String email, String numeroCelular, int horasTrabajadas, String direccion, double salarioPorHora) {
+    public Cadete(String nombre, String apellido, String dni, String email, String numeroCelular, int horasTrabajadas, String direccion, double salarioPorHora) {
         super(nombre, apellido, dni, email, numeroCelular, horasTrabajadas, direccion, salarioPorHora);
         this.tipo_de_trabajo=Tipo_de_Trabajo.cadete;
     }

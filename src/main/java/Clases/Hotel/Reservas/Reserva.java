@@ -103,11 +103,22 @@ public class Reserva implements Identificable, CalcularCosto {
 
 
     public void agregarHabitacion(Habitacion h)throws Dato_No_Encontrado_Exeption,Habitacion_No_Disponible_Exeption{
-        if (h == null
-                || h.getEstadoHabitacion() != EstadoHabitacion.DISPONIBLE
-                || existe(h.getId())) {
-            throw new Habitacion_No_Disponible_Exeption(h.getEstadoHabitacion(),h.getId());
+        if (h == null) {
+            throw new IllegalArgumentException("La habitación no puede ser nula");
         }
+
+        if (h.getEstadoHabitacion() != EstadoHabitacion.DISPONIBLE) {
+            throw new Habitacion_No_Disponible_Exeption(
+                    h.getEstadoHabitacion(), h.getId()
+            );
+        }
+
+        if (existe(h.getId())) {
+            throw new Habitacion_No_Disponible_Exeption(
+                    h.getEstadoHabitacion(), h.getId()
+            );
+        }
+
         h.reservar();
         habitacionesXreserva.add(h);
     }
@@ -123,11 +134,15 @@ public class Reserva implements Identificable, CalcularCosto {
     public void devolverTodo() throws Dato_No_Encontrado_Exeption {
 
         if (habitacionesXreserva == null || habitacionesXreserva.isEmpty()) {
-            throw new Datos_Invalidos_Exeption("La reserva no tiene habitaciones para devolver");
+            throw new Datos_Invalidos_Exeption(
+                    "La reserva no tiene habitaciones para devolver"
+            );
         }
 
         for (Habitacion h : habitacionesXreserva) {
-            h.devolver();
+            if (h.getEstadoHabitacion() == EstadoHabitacion.RESERVADA) {
+                h.devolver();
+            }
         }
     }
 

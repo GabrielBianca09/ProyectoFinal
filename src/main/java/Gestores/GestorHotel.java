@@ -1,4 +1,4 @@
-package gestores;
+package Gestores;
 
 import Clases.Hotel.Hotel;
 import Clases.Persona.Admin.Administrador;
@@ -6,10 +6,12 @@ import Clases.Persona.Empleados.Empleado;
 import Clases.Hotel.Habitacion;
 import Clases.Persona.Cliente.Pasajero;
 import Clases.Hotel.Reservas.Reserva;
-import Exepciones.Dato_No_Encontrado_Exeption;
-import Exepciones.Datos_Duplicados_Exeption;
-import Exepciones.Datos_Invalidos_Exeption;
-import Exepciones.ListaVaciaExeption;
+import Exepciones.*;
+import Interfaces.DAO;
+import SQL.HabitacionDao;
+import SQL.HotelDao;
+
+import java.util.List;
 
 //aca se usa el gestor generico para hacer todas las funciones de cada clase.
 //funciones de creacion,eliminacion,actualizacion,busqueda,verificar existencia, listarDatos,validacion de credenciales(administrador).
@@ -20,6 +22,9 @@ public class GestorHotel {
     private Gestor<Empleado>empleadoGestor;
     private Gestor<Hotel>hoteles;
     private Gestor<Administrador>administradorGestor;
+    private final DAO<Habitacion> habitacionDao = new HabitacionDao();
+    private final DAO<Hotel> hotelDao = new HotelDao();
+    private final HabitacionDao habitacionEnBD = new HabitacionDao();
 
     public GestorHotel() {
         this.empleadoGestor =new Gestor<Empleado>();
@@ -63,8 +68,8 @@ public class GestorHotel {
     }
     // ==================== AGREGAR ====================
 
-    public void agregarHabitacion(Habitacion h) throws Datos_Duplicados_Exeption {
-        habitacionGestor.agregar(h);
+    public void agregarHabitacion(Habitacion h) throws Datos_Duplicados_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        habitacionDao.agregar(h);
     }
 
     public void agregarCliente(Pasajero p) throws Datos_Duplicados_Exeption, Datos_Invalidos_Exeption {
@@ -79,8 +84,8 @@ public class GestorHotel {
         reservaGestor.agregar(r);
     }
 
-    public void agregarHotel(Hotel h) throws Datos_Duplicados_Exeption {
-        hoteles.agregar(h);
+    public void agregarHotel(Hotel h) throws Datos_Duplicados_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        hotelDao.agregar(h);
     }
 
     public void agregarAdministardor(Administrador a) throws Datos_Duplicados_Exeption {
@@ -90,22 +95,14 @@ public class GestorHotel {
 
 // ==================== BUSCAR ====================
 
-    public Habitacion buscarHabitacion(int id) throws Dato_No_Encontrado_Exeption {
-        return habitacionGestor.buscar(id);
+    public Habitacion buscarHabitacion(int id) throws Dato_No_Encontrado_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        return habitacionDao.buscarPorId(id);
     }
 
     public Pasajero buscarCliente(int id) throws Dato_No_Encontrado_Exeption {
         return huespedes.buscar(id);
     }
 
-    public Pasajero buscarPasajero(int id) throws Dato_No_Encontrado_Exeption {
-        for (Pasajero p : huespedes.getLista()) {
-            if (p.getId() == id) {
-                return p;
-            }
-        }
-        throw new Dato_No_Encontrado_Exeption(id);
-    }
 
     public Empleado buscarEmpleado(int id) throws Dato_No_Encontrado_Exeption {
         return empleadoGestor.buscar(id);
@@ -115,8 +112,8 @@ public class GestorHotel {
         return reservaGestor.buscar(id);
     }
 
-    public Hotel BuscarHotel(int id) throws Dato_No_Encontrado_Exeption {
-        return hoteles.buscar(id);
+    public Hotel BuscarHotel(int id) throws Dato_No_Encontrado_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        return hotelDao.buscarPorId(id);
     }
 
     public Administrador buscarAdministrador(int idadmin) throws Dato_No_Encontrado_Exeption {
@@ -161,8 +158,8 @@ public class GestorHotel {
 
 // ==================== ACTUALIZAR ====================
 
-    public void actualizarHabitacion(int id, Habitacion h) throws Dato_No_Encontrado_Exeption {
-        habitacionGestor.actualizar(h, id);
+    public void actualizarHabitacion(Habitacion h, int id) throws Dato_No_Encontrado_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        habitacionDao.actualizar(h, id);
     }
 
     public void actualizarReserva(int id, Reserva r) throws Dato_No_Encontrado_Exeption {
@@ -177,15 +174,15 @@ public class GestorHotel {
         empleadoGestor.actualizar(e, id);
     }
 
-    public void actualizarHotel(int id, Hotel h) throws Datos_Duplicados_Exeption, Dato_No_Encontrado_Exeption {
-        hoteles.actualizar(h, id);
+    public void actualizarHotel(int id, Hotel h) throws Datos_Duplicados_Exeption, Dato_No_Encontrado_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        hotelDao.actualizar(h, id);
     }
 
 
 // ==================== ELIMINAR ====================
 
-    public void eliminarHabitacion(int id) throws Dato_No_Encontrado_Exeption {
-        habitacionGestor.eliminar(id);
+    public void eliminarHabitacion(int id) throws Dato_No_Encontrado_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        habitacionDao.eliminar(id);
     }
 
     public void eliminarReserva(int id) throws Dato_No_Encontrado_Exeption {
@@ -200,9 +197,8 @@ public class GestorHotel {
         empleadoGestor.eliminar(id);
     }
 
-    public void eliminarHotel(int id) throws Dato_No_Encontrado_Exeption {
-        Hotel h = hoteles.buscar(id);
-        hoteles.eliminar(id);
+    public void eliminarHotel(int id) throws Dato_No_Encontrado_Exeption, Error_De_Acceso_A_Datos_Exeption {
+        hotelDao.eliminar(id);
     }
 
     public void eliminarAdministrador(int idadmin) throws Dato_No_Encontrado_Exeption {
@@ -214,10 +210,8 @@ public class GestorHotel {
 
 // ==================== MOSTRAR / LISTAR ====================
 
-    public void mostrarHabitaciones() {
-        if (habitacionGestor.getLista().isEmpty()) {
-            throw new ListaVaciaExeption("no hay elementos cargados");
-        }
+    public void mostrarHabitaciones()  {
+
         for (Habitacion h : habitacionGestor.getLista()) {
             System.out.println(h.toString());
         }
@@ -250,13 +244,9 @@ public class GestorHotel {
         }
     }
 
-    public void listarHoteles() {
-        if (hoteles.getLista().isEmpty()) {
-            throw new ListaVaciaExeption("no hay elementos");
-        }
-        for (Hotel h : hoteles.getLista()) {
-            System.out.println(h.toString());
-        }
+    public List<Hotel> listarHoteles() throws Error_De_Acceso_A_Datos_Exeption {
+
+     return hotelDao.listar();
     }
 
     public void mostrarAdministrador() {
@@ -267,6 +257,30 @@ public class GestorHotel {
             System.out.println(a);
         }
     }
+
+    public List<Habitacion> listarHabitaciones() throws Error_De_Acceso_A_Datos_Exeption{
+
+
+        return habitacionDao.listar();
+
+    }
+
+    public void mostarHabitacionBD() throws Error_De_Acceso_A_Datos_Exeption {
+
+        List<Habitacion> habitacion = listarHabitaciones();
+        for (Habitacion h : habitacion) {
+            System.out.println(h.toString());
+        }
+    }
+
+    public void mostarHotelBD() throws Error_De_Acceso_A_Datos_Exeption {
+
+        List<Hotel> hotel = listarHoteles();
+        for (Hotel h : hotel) {
+            System.out.println(h.toString());
+        }
+    }
+
 
 
 // ==================== ADMINISTRADORES ====================

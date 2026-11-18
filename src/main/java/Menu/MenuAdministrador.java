@@ -1,14 +1,10 @@
-package Clases.Persona.Admin;
+package Menu;
 
-import Clases.Hotel.MenuHabitacion;
-import Clases.Hotel.MenuHotel;
-import Clases.Hotel.Reservas.MenuReserva;
-import Clases.Persona.Cliente.MenuCliente;
-import Clases.Persona.Empleados.MenuEmpleado;
+import Clases.Persona.Admin.Administrador;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
 import Exepciones.Error_De_Acceso_A_Datos_Exeption;
-import gestores.GestorHotel;
+import Gestores.GestorHotel;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 //por ser el administrador valido sus credenciales.

@@ -1,9 +1,10 @@
-package Clases.Persona.Cliente;
+package Menu;
 
+import Clases.Persona.Cliente.Pasajero;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
-import gestores.GestorHotel;
+import Gestores.GestorHotel;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

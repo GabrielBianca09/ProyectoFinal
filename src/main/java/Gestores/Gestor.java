@@ -1,4 +1,4 @@
-package gestores;
+package Gestores;
 
 import Interfaces.Identificable;
 import Exepciones.Dato_No_Encontrado_Exeption;
@@ -46,7 +46,8 @@ public class Gestor<T extends Identificable> {
     }
 
     public void eliminar(int id)throws Dato_No_Encontrado_Exeption {
-        T eliminado=buscar(id);
+
+        T eliminado = buscar(id);
         lista.remove(eliminado);
     }
 

@@ -1,14 +1,15 @@
-package Clases.Persona.Empleados;
+package Menu;
 
-import Clases.Hotel.Reservas.MenuReserva;
+import Clases.Persona.Empleados.Conserje;
+import Clases.Persona.Empleados.Empleado;
 import Exepciones.OperacionInvalida;
-import gestores.GestorHotel;
+import Gestores.GestorHotel;
 
-public class RecepcionConserje {
+public class MenuConserje {
     private GestorHotel gestorHotel;
     private Empleado empleado;
 
-    public RecepcionConserje(GestorHotel gestorHotel, Empleado empleado) {
+    public MenuConserje(GestorHotel gestorHotel, Empleado empleado) {
         this.gestorHotel = gestorHotel;
         this.empleado = empleado;
     }

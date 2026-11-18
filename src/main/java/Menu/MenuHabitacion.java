@@ -1,12 +1,14 @@
-package Clases.Hotel;
+package Menu;
 
+import Clases.Hotel.Habitacion;
+import Clases.Hotel.Hotel;
 import Enums.EstadoHabitacion;
 import Enums.Tipo_Habitacion;
 import Exepciones.Dato_No_Encontrado_Exeption;
 import Exepciones.Datos_Duplicados_Exeption;
 import Exepciones.Datos_Invalidos_Exeption;
 import Exepciones.Error_De_Acceso_A_Datos_Exeption;
-import gestores.GestorHotel;
+import Gestores.GestorHotel;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -86,14 +88,13 @@ public class MenuHabitacion {
 
                     case 2:
 
-                       List<Habitacion> lista= new ArrayList<>(gestorHotel.listarHabitaciones());
-                       System.out.println(lista.toString());
+                      gestorHotel.mostarHabitacionBD();
 
                         break;
 
                     case 3:
                         try {
-                            gestorHotel.mostrarHabitaciones();
+                            gestorHotel.mostarHabitacionBD();
                             System.out.println("Ingrese el numero de habitacion a eliminar:");
                             int nro = leer.nextInt();
                             leer.nextLine();
@@ -143,7 +144,7 @@ public class MenuHabitacion {
                             h.setTipoHabitacion(pedirTipo());
                             h.setEstadoHabitacion(pedirEstado());
 
-                            gestorHotel.actualizarHabitacion(h.getId(), h);
+                            gestorHotel.actualizarHabitacion(h, h.getId());
 
                             System.out.println("Habitacion actualizada con exito");
 
