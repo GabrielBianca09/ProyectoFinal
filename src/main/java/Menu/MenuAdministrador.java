@@ -7,12 +7,13 @@ import Exepciones.Error_De_Acceso_A_Datos_Exeption;
 import Gestores.GestorHotel;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-//por ser el administrador valido sus credenciales.
-//este menu es una composicion la cual tiene el gestorhotel que la clase en la cual estan todas mis funciones
+
+//este menu es una composicion la cual tiene el gestorhotel, que es la clase en la cual estan todas las funciones
 //de creacion,busqueada,eliminacion,actualizacion.
 //todos los menus reciben el mismo gestor previamente creador en main.
 //implementa funciones de ingreso de datos y uso de exepciones.
 //para mayor limpieza del codigo cada clase tiene su menu y se implementa en esta clase.
+//por ser el administrador valido sus credenciales.
 
 public class MenuAdministrador {
     private Scanner sc;

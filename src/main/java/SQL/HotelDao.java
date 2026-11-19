@@ -133,6 +133,8 @@ public class HotelDao implements DAO<Hotel> {
         }
     }
 
+    /// Funcion secundaria que crea una nueva instancia de Hotel, para ser ingresado a la base de datos
+
     public Hotel agregarHotel(ResultSet rs) throws SQLException {
 
 

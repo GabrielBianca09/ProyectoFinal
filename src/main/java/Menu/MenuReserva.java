@@ -80,7 +80,7 @@ public class MenuReserva {
                                 Habitacion h = gestorHotel.buscarHabitacion(opcionAgregar);
 
                                 r.agregarHabitacion(h);
-
+                                gestorHotel.reservarHabitacion(h.getId());
                                 System.out.println("Habitación agregada correctamente");
 
                                 System.out.println("¿Desea agregar otra habitación? (s/n)");
@@ -166,8 +166,11 @@ public class MenuReserva {
                             }
 
                             // Primero devolvemos la habitación.
+
                             gestorHotel.devolverHabitacionesReserva(id);
+
                             // Después eliminamos la reserva.
+
                             gestorHotel.eliminarReserva(id);
 
                             System.out.println("Reserva eliminada con éxito.");

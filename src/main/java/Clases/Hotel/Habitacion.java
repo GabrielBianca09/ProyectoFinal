@@ -129,11 +129,9 @@ public class Habitacion implements Identificable {
 
     @Override
     public String toString() {
-        return "Habitacion{" +
-                "tipoHabitacion=" + tipoHabitacion +
-                ", numeroHabitacion=" + numeroHabitacion +
-                ", estadoHabitacion=" + estadoHabitacion +
-                ", capacidadOcupantes=" + capacidadOcupantes +
-                '}';
+        return "Habitacion " + numeroHabitacion +
+                " || tipoHabitacion = " + tipoHabitacion +
+                " | estadoHabitacion = " + estadoHabitacion +
+                " | capacidadOcupantes = " + capacidadOcupantes ;
     }
 }
