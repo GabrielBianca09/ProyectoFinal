@@ -9,8 +9,6 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
         GestorHotel gestorHotel=new GestorHotel();
-        Scanner leer =new Scanner(System.in);
-
 
         try {
             MenuAdministrador menuAdministrador=new MenuAdministrador(gestorHotel);
